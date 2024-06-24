@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>景点地图H5页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ymNFeWvGjzIRnGeXjXb91AGUseb2IROT"></script>
+    <script src="//code.bdstatic.com/npm/mapvgl@1.0.0-beta.141/dist/mapvgl.min.js"></script>
+    <style>
+        body,
+    html,
+    #container {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-family: "微软雅黑";
+    }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        var map = new BMapGL.Map("container",{
+    style: {
+        styleJson: [
+            {
+               featureType: "building",
+               elementType: "all",
+               stylers: {
+                    visibility: "off", // 设置楼栋模型不可见
+               },
+            },{
+    "featureType": "poilabel",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "poilabel",
+    "elementType": "labels.icon",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "road",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "districtlabel",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "on"
+    }
+}, {
+    "featureType": "highway",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "transportation",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "on"
+    }
+}, {
+    "featureType": "highway",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "arterial",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "on"
+    }
+}, {
+    "featureType": "local",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "fourlevelway",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "scenicspotsway",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "railway",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "highrailway",
+    "elementType": "geometry",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "highwaysign",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "highwaysign",
+    "elementType": "labels.icon",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "nationalwaysign",
+    "elementType": "labels.icon",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "nationalwaysign",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "trafficlight",
+    "elementType": "labels.icon",
+    "stylers": {
+        "visibility": "off"
+    }
+}
+        ],
+    },
+});
+        map.centerAndZoom(new BMapGL.Point(116.707825,23.359542), 11);
+        map.enableScrollWheelZoom();
+
+        // 添加区域掩膜
+        /*var ply = new BMap.Polygon([
+            new BMap.Point(116.387112, 39.920977),
+            new BMap.Point(116.411138, 39.920977),
+            new BMap.Point(116.411138, 39.90760),
+            new BMap.Point(116.387112, 39.90760)
+        ], {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5}); 
+        map.addOverlay(ply);*/
+
+        // 自定义Canvas
+        /*var canvasLayer = new BMap.CustomLayer({
+            render: function(){
+                var ctx = this.canvas.getContext('2d');
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+                ctx.fillRect(50, 50, 100, 100);
+            }
+        });
+        map.addCustomLayer(canvasLayer);*/
+        addMapMask('chq.json');
+        addMapMask('hjq.json');
+        addMapMask('jpq.json');
+        addMapMask('lhq.json');
+        addMapMask('cyq.json');
+        addMapMask('cnq.json');
+        addMapMask('nax.json');
+
+        var geoData=null;
+        fetch('geo.json')
+            .then(response => response.json())
+            .then(data => {
+                geoData = data;
+                data.forEach(infospot => {
+                    infospot.lnglat = new BMapGL.Point(infospot.lng, infospot.lat);
+                    addMarker(infospot);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+
+            var view = new mapvgl.View({
+                map: map
+            });
+
+
+        var lineData=null;
+        fetch('line.json')
+            .then(response => response.json())
+            .then(data => {
+                lineData = data;
+                fetchRegionDetails(lineData, geoData);
+            })
+            .catch(error => console.error('Error:', error));
+        
+        var plcolor=['#C3FFA5', '#B5EF60', '#197BAA', '#499330', '#A1ADE0', '#D7AF90', '#326CA8', '#6E9581'];
+        function fetchRegionDetails(toursData, geoData) {
+            // 遍历toursData中的每个旅行线路
+            toursData.forEach(tour => {
+                var linepoint=[];
+                const matchedRegions = tour.regions.map(regionId => {
+                // 在geoData中查找与regionId匹配的项
+                const region = geoData.find(item => item.id == regionId);
+                //linepoint.push(region.lnglat);
+                linepoint.push([region.lng,region.lat]);
+                // 如果找到，则返回该地区的全部信息，否则返回null或者自定义的提示信息
+                return region ? region : `ID为${regionId}的地区信息未找到`;
+                });
+                // 打印或处理匹配到的地区信息
+                console.log(`线路名称: ${tour.name}, 区域详情:`, matchedRegions);
+                //var polyline = new BMapGL.Polyline(linepoint, {strokeColor:plcolor[tour.lineid-1], strokeWeight:10, strokeOpacity:0.75,linkRight:true,strokeLineCap:'square'});
+                //map.addOverlay(polyline);
+                
+                var lineLayer = new mapvgl.LineRainbowLayer({
+                    style: 'road', // road, arrow, normal
+                    width: 10,
+                    color: [plcolor[tour.lineid-1]+"EE"]
+                });
+                view.addLayer(lineLayer);
+
+                var data = [{
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: linepoint
+                    }
+                }];
+                lineLayer.setData(data);
+            });
+        }
+
+        function addMarker(infospot){
+            // 添加标记点
+            //var point = new BMapGL.Point(infospot.lng, infospot.lat);
+            var marker = new BMapGL.Marker(infospot.lnglat);
+            map.addOverlay(marker);
+
+
+            // 点击标记点，显示信息框
+            var infoWindow = new BMapGL.InfoWindow(infospot.id+"<br/>"+infospot.name+"<br/>"+infospot.desc);
+            marker.addEventListener("click", function(){
+                this.openInfoWindow(infoWindow);
+            });
+            var label = new BMapGL.Label(infospot.name, {       // 创建文本标注
+                position: infospot.lnglat,                          // 设置标注的地理位置
+                offset: new BMapGL.Size(-30, -20)           // 设置标注的偏移量
+            })  
+            map.addOverlay(label);       
+        }
+
+        function addMapMask(name){
+            
+        fetch(name)
+            .then(response => response.json())
+            .then(rs => {
+                for (var i = 0; i < rs.length; i++) {
+                    var path = [];
+                    var xyArr = rs[i].split(';');
+                    var ptArr = [];
+                    for (var j = 0; j < xyArr.length; j++) {
+                        var tmp = xyArr[j].split(',');
+                        var pt = new BMapGL.Point(tmp[0], tmp[1]);
+                        ptArr.push(pt);
+                    }
+                    var mapmask = new BMapGL.MapMask(ptArr, {
+                        isBuildingMask: true,
+                        isPoiMask: true,
+                        isMapMask: true,
+                        showRegion: 'inside',
+                        topFillColor: '#5679ea',
+                        topFillOpacity: 0.5,
+                        sideFillColor: '#5679ea',
+                        sideFillOpacity: 0.9
+                    });
+                    map.addOverlay(mapmask);
+                    var border = new BMapGL.Polyline(ptArr, {
+                        strokeColor: '#4ca7a2',
+                        strokeWeight: 3,
+                        strokeOpacity: 1
+                    });
+                    map.addOverlay(border);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+            /*var bdary = new BMapGL.Boundary();
+            bdary.get(name, function (rs) {
+                // 绘制行政区
+                console.log(name);
+                console.log(JSON.stringify(rs.boundaries));
+                for (var i = 0; i < rs.boundaries.length; i++) {
+                    var path = [];
+                    var xyArr = rs.boundaries[i].split(';');
+                    var ptArr = [];
+                    for (var j = 0; j < xyArr.length; j++) {
+                        var tmp = xyArr[j].split(',');
+                        var pt = new BMapGL.Point(tmp[0], tmp[1]);
+                        ptArr.push(pt);
+                    }
+                    var mapmask = new BMapGL.MapMask(ptArr, {
+                        isBuildingMask: true,
+                        isPoiMask: true,
+                        isMapMask: true,
+                        showRegion: 'inside',
+                        topFillColor: '#5679ea',
+                        topFillOpacity: 0.5,
+                        sideFillColor: '#5679ea',
+                        sideFillOpacity: 0.9
+                    });
+                    map.addOverlay(mapmask);
+                    var border = new BMapGL.Polyline(ptArr, {
+                        strokeColor: '#4ca7a2',
+                        strokeWeight: 3,
+                        strokeOpacity: 1
+                    });
+                    map.addOverlay(border);
+                }
+            });*/
+        }
+        
+        window.addEventListener("orientationchange", function() {
+            if (window.orientation === 0 || window.orientation === 180) {
+                alert("请将手机横过来以获得最佳体验！");
+            }
+        });
+
+         //定义一个控件类
+         function LineSelect() {
+            this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+            this.defaultOffset = new BMapGL.Size(20, 20)
+        }
+        //通过JavaScript的prototype属性继承于BMap.Control
+        LineSelect.prototype = new BMapGL.Control();
+
+        //自定义控件必须实现自己的initialize方法，并且将控件的DOM元素返回
+        //在本方法中创建个div元素作为控件的容器，并将其添加到地图容器中
+        LineSelect.prototype.initialize = function(map) {
+             //创建一个dom元素
+            var div = document.createElement('div');
+             //添加文字说明
+            div.appendChild(document.createTextNode('放大2级'));
+              // 设置样式
+            div.style.cursor = "pointer";
+            div.style.padding = "7px 10px";
+            div.style.boxShadow = "0 2px 6px 0 rgba(27, 142, 236, 0.5)";
+            div.style.borderRadius = "5px";
+            div.style.backgroundColor = "white";
+            // 绑定事件,点击一次放大两级
+            div.onclick = function(e){
+                map.setZoom(map.getZoom() + 2);
+            }
+            // 添加DOM元素到地图中
+            map.getContainer().appendChild(div);
+            // 将DOM元素返回
+            return div;
+        }
+        //创建控件元素
+        var myLineSelect = new LineSelect();
+        //添加到地图中
+        map.addControl(myLineSelect);
+
+
+    </script>
+</body>
+</html>
