@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="landscape">
 <head>
     <meta charset="UTF-8">
     <title>景点地图H5页面</title>
@@ -34,21 +34,121 @@
 }
 
     </style>
+    <style>
+        .loading-container{
+            background: url('images/loading-bg.png');
+            width: 100vh;
+            height: 100vw;
+            background-size: cover;
+            background-position: center;
+        }
+        .ydy-container{
+            background: url('images/ydy.png');
+            width: 100vh;
+            height: 100vw;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            z-index: 999;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .zdy-container{
+            background: url('images/zdy.png');
+            width: 100vh;
+            height: 100vw;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            z-index: 998;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .loader-progress-bar {
+            width: 70vw;
+    height: 2vh;
+    border-radius: 50vw;
+    border: 0.125em solid;
+    color: #69bff0;
+    position: absolute;
+    bottom: 30vw;
+    left: calc((100vh - 50vw) / 2);
+}
+#toggle:checked ~ #sect .loader-progress-bar {
+  filter: drop-shadow(0.2em 0.2em 0.2em rgba(0, 0, 0, 0.5));
+}
+.loader-progress-bar:before, .loader-progress-bar:after {
+  content: "";
+  top: 0.2em;
+  left: 0.2em;
+  right: 0.2em;
+  bottom: 0.2em;
+  border-radius: 0.25em;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+}
+.loader-progress-bar:after {
+  right: 100%;
+  -webkit-animation: loaderBarInfinite 3s infinite linear, loaderBarScroll 3s infinite linear;
+          animation: loaderBarInfinite 3s infinite linear, loaderBarScroll 3s infinite linear;
+  box-shadow: inset 0 0.5em 0.5em rgba(105,191,240, 0.25), inset 0 -0.5em 0.5em rgba(105,191,240, 1);
+  background-image: rgb(105, 191, 240);
+  background-size: 26px 13px;
+}
+
+@-webkit-keyframes loaderBarInfinite {
+  from {
+    background-position: 104px 0;
+  }
+  to {
+    background-position: -104px 0;
+  }
+}
+
+@keyframes loaderBarInfinite {
+  from {
+    background-position: 104px 0;
+  }
+  to {
+    background-position: -104px 0;
+  }
+}
+@-webkit-keyframes loaderBarScroll {
+  to {
+    right: 2%;
+  }
+}
+@keyframes loaderBarScroll {
+  to {
+    right: 2%;
+  }
+}
+    </style>
 </head>
 <body>
-    <div id="container"></div>
+    <div class="loading-container" id="loading-container">
+        <div class="loader-progress-bar"></div>
+    </div>
+    <div class="ydy-container" id="ydy-container">
+        <img src="images/ydy-map.png" class="button" style="left: 15vh;bottom: 7vh;" onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';">
+        <img src="images/ydy-line.png" class="button" style="right: 15vh;bottom: 7vh;" onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';">
+    </div>
+    <div class="zdy-container" id="zdy-container" style="visibility: hidden;" onclick="setTimeout(function(){document.getElementById('zdy-container').style.display='none';},500);">
+    </div>
+    
+    <div id="container" style="visibility: hidden;"></div>
     <!--<canvas id="overlayCanvas" style="position:absolute; top:0; left:0; width:100%;height:100%;z-index: 999;"></canvas>-->
     <style>
         /* 竖屏样式 */
 @media screen and (orientation: portrait) {
     /* 在这里定义竖屏时的样式 */
     .modal-content {
-            background-image: url(images/bg.png);
+            background-image: url(images/1.png);
             background-size: cover;
-            width: 177vw;
-            height: 100vw;
+            width: 100vh;
+            height: 46.19vh;
             position: relative;
-            left: calc((100vh - 177vw) / 2);
+            background-position: center;
+            left: -4vh;
         }
         .mc-header{
             position: absolute;
@@ -80,12 +180,13 @@
 @media screen and (orientation: landscape) {
     /* 在这里定义横屏时的样式 */
     .modal-content {
-            background-image: url(images/bg.png);
+            background-image: url(images/1.png);
             background-size: cover;
             width: 177vh;
             height: 100vh;
             position: relative;
             left: calc((100vw - 177vh) / 2);
+            background-position: center;
         }
 }
         .modal {
@@ -105,15 +206,15 @@
 
         .close {
             position: absolute;
-    top: 14%;
-    right: 8%;
+            top: 5vh;
+    right: 3vh;
     cursor: pointer;
     width: 5%;
         }
 
         .button {
             position: absolute;
-    bottom: 12%;
+    bottom: 2vh;
     cursor: pointer;
     width: 40vw;
         }
@@ -136,11 +237,11 @@
     <div class="modal" id="itemModal">
         <div class="modal-content">
             <img src="images/close.png" alt="Close" class="close" onclick="document.getElementById('itemModal').style.display = 'none'">
-            <img src="images/dhyy.png" alt="Button 1" class="button" style="left: calc((177vw - 88vw) / 2);" onclick="callPhoneNumber(document.getElementById('itemModal').dataset.phone);">
-            <img src="images/yjdh.png" alt="Button 2" class="button" style="right: calc((177vw - 88vw) / 2);" onclick="yjdh()">
+            <img src="images/dhyy.png" alt="Button 1" class="button" style="left: 25vh;" onclick="callPhoneNumber(document.getElementById('itemModal').dataset.phone);">
+            <img src="images/yjdh.png" alt="Button 2" class="button" style="right: 15vh;" onclick="yjdh()">
             <script>
                 function yjdh(){
-                    var name=document.getElementById('iM_name').innerText;
+                    var name=document.getElementById('itemModal').dataset.iM_name;
                     var lat=document.getElementById('itemModal').dataset.lat;
                     var lng=document.getElementById('itemModal').dataset.lng;
                     /*wx.openLocation({
@@ -164,7 +265,7 @@
 
                 
             </script>
-            <div class="mc-header">
+            <!--<div class="mc-header">
                 <div style="display: flex;">
                     <img src="images/close.png" style="width: 18vw; height:18vw;"/>
                     <div style="margin: 3.5vw 3vw;height: 11vw;">
@@ -192,7 +293,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 
@@ -284,14 +385,22 @@ function handleMouseEvent(event, eventType) {
 }*/
 var startX, startY,centerPoint,Gzoom; 
 Gzoom=false;
+
+// 定义所需的经纬度范围
+var southWest = new BMapGL.Point(116.247892,23.249313); // 范围的西南角
+var northEast = new BMapGL.Point(117.176955,23.528463); // 范围的东北角
 function checkOrientation() {
-    if (window.orientation === 90 || window.orientation === -90) { // 横屏
+    if (window.orientation == 90 || window.orientation == -90) { // 横屏
         document.querySelector("html").classList.remove('landscape')
         map.enableDragging();
     } else { // 竖屏
         if(window.innerWidth<window.innerHeight){
         document.querySelector("html").classList.add('landscape')
         map.disableDragging();
+
+        }else{
+        document.querySelector("html").classList.remove('landscape')
+        map.enableDragging();
 
         }
     }
@@ -312,7 +421,17 @@ function checkOrientation() {
             let currentY = firstTouch.clientY; 
             let diffX = currentX - startX; 
             let diffY = currentY - startY; 
+            var bounds = map.getBounds(); // 获取当前地图可视范围
+
+    // 判断地图边界是否超出指定范围
+    /*if (bounds.getSouthWest().lng < southWest.lng || bounds.getSouthWest().lat < southWest.lat ||
+        bounds.getNorthEast().lng > northEast.lng || bounds.getNorthEast().lat > northEast.lat) {
+        map.panBy(0, 0); // 禁止地图继续拖动，将地图位置还原到原位置
+    }else{
             map.panBy(diffY,-diffX,{noAnimation:true});
+
+    }*/
+    map.panBy(diffY,-diffX,{noAnimation:true});
             startX = currentX;
             startY = currentY;
         }
@@ -336,13 +455,20 @@ function checkOrientation() {
     });*/
 }
 
+window.addEventListener("DOMContentLoaded", function(){
+    setTimeout(function(){
+    document.getElementById('container').style.visibility='visible';
+    document.getElementById('loading-container').style.display='none';
+
+    },1750);
+});
 // 在页面加载和屏幕旋转时检测屏幕方向
 window.addEventListener("load", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
 
 
         var map = new BMapGL.Map("container",{
-            minZoom:11,
+            minZoom:10,
             maxZoom:12,
             fixCenterWhenPinch:false,
     style: {
@@ -467,6 +593,36 @@ window.addEventListener("orientationchange", checkOrientation);
     "stylers": {
         "visibility": "off"
     }
+},{
+    "featureType": "provincialwaysign",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "provincialwaysign",
+    "elementType": "labels.icon",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "tertiarywaysign",
+    "elementType": "labels.icon",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "tertiarywaysign",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "water",
+    "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
 }
         ],
     },
@@ -475,6 +631,57 @@ window.addEventListener("orientationchange", checkOrientation);
         map.centerAndZoom(new BMapGL.Point(116.707825,23.359542), 11);
         map.disablePinchToZoom();
         //map.enableScrollWheelZoom();
+        //map.setBounds(new BMapGL.Bounds(new BMapGL.Point(116.247892,23.249313),new BMapGL.Point(117.176955,23.528463)));
+
+/*
+    // 创建自定义覆盖物DOM
+function createDOM(feature) {
+  const img = document.createElement('img');
+  img.style.height = '583.68px';
+  img.style.width = '1037.78px';
+  img.style.opacity = '1';
+  img.src = window.location.href+'images/map.png';
+  img.draggable = false;
+  return img;
+}
+  
+// 自定义图层
+const cusLayer = new BMapGL.CustomHtmlLayer(createDOM, {
+    offsetX: 0,
+    offsetY: 0,
+    minZoom: 5,
+    maxZoom: 17,
+    enableDraggingMap: true
+});
+  
+const data = { 
+    "type": "FeatureCollection",
+    "features": [
+        { 
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [116.68,23.07]
+            },
+            "properties": {"prop0": "value0"}
+      }
+  ]
+};
+// 设置图层数据
+cusLayer.setData(data);
+  
+// 将自定义html图层添加到地图上
+map.addCustomHtmlLayer(cusLayer);*/
+var pStart = new BMapGL.Point(116.08,23.66);
+var pEnd = new BMapGL.Point(117.28,23.034);
+var bounds = new BMapGL.Bounds(new BMapGL.Point(pStart.lng, pEnd.lat), new BMapGL.Point(pEnd.lng, pStart.lat));
+var imgOverlay = new BMapGL.GroundOverlay(bounds, {
+    type: 'image',
+    url: 'images/map.png',
+    opacity: 1
+
+});
+map.addOverlay(imgOverlay);
 
         // 添加区域掩膜
         addMapMask('chq.json');
@@ -507,7 +714,7 @@ window.addEventListener("orientationchange", checkOrientation);
             .then(response => response.json())
             .then(data => {
                 lineData = data;
-                fetchRegionDetails(lineData, geoData);
+                //fetchRegionDetails(lineData, geoData);
             })
             .catch(error => console.error('Error:', error));
         
@@ -545,12 +752,125 @@ window.addEventListener("orientationchange", checkOrientation);
                 lineLayer.setData(data);
             });
         }
+        var size=200;
+        var opo = 1;
+    function animation() {
+        opo++
+        console.log(opo % 10000);
+        window.requestAnimationFrame(animation);
+  }
+
+  function startAnimation() {
+        window.requestAnimationFrame(animation);
+  }
+  function CustomSymbol(_size, _anchor) {
+        BMapGL.Symbol.call(this, _size, _anchor);
+        this.width = _size.width;
+        this.height = _size.height;
+        // 需要再addOverlay之前设置true，需要保证纹理大小不变化
+        this.isReDraw = true;
+    }
+    CustomSymbol.prototype = new BMapGL.Symbol();
+    CustomSymbol.prototype.constructor = CustomSymbol;
+    CustomSymbol.prototype.add = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = this.width * 2;
+        canvas.height = this.height * 2;
+        this.context = canvas.getContext('2d');
+        this.isReDraw = false;
+
+    }
+    CustomSymbol.prototype.render = function (map) {
+        const duration = 1500;
+        const t = (performance.now() % duration) / duration;
+
+        // 可以通过修改 0.3 0.7
+        const radius = (this.width / 2) * 0.1;
+        const outerRadius = (this.width / 2) * 0.5 * t + radius;
+        const context = this.context;
+        context.save();
+        // 2倍图
+        context.scale(2, 2);
+        context.clearRect(0, 0, this.width, this.height);
+
+        // 扩散圆
+        context.beginPath();
+        context.arc(
+            this.width / 2,
+            this.height / 2,
+            outerRadius,
+            0,
+            Math.PI * 2
+        );
+        context.fillStyle = 'rgba(255,255,255,'+(1 - t)+')' 
+        context.fill();
+
+        // 中间圆
+        context.beginPath();
+        context.arc(
+            this.width / 2,
+            this.height / 2,
+            radius,
+            0,
+            Math.PI * 2
+        );
+        context.fillStyle = 'rgba(255,255,255, .75)';
+        context.strokeStyle = 'rgba(255,255,255, .1)';
+        // 圆描边宽度动态展示
+        context.lineWidth = 2 + 4 * (1 - t);
+        context.fill();
+        context.stroke();
+
+        context.restore();
+
+        // 更新图像的像素数据
+        this.data = context.getImageData(
+            0,
+            0,
+            this.context.canvas.width,
+            this.context.canvas.height
+        );
+        return true;
+    }
+    var custom = new CustomSymbol(new BMapGL.Size(size, size), new BMapGL.Size(size / 2, size / 2));
+        custom.isReDraw = true;
+    /*function markerstart() {
+        custom.isReDraw = true;
+    }
+    //停止动画
+    function markerstop() {
+        custom.isReDraw = false;
+    }*/
+    var myIcon = new BMapGL.Icon("images/circle.png", new BMapGL.Size(16, 16));
 
         function addMarker(infospot){
             // 添加标记点
             //var point = new BMapGL.Point(infospot.lng, infospot.lat);
-            var marker = new BMapGL.Marker(infospot.lnglat);
+
+            var marker = new BMapGL.Marker(infospot.lnglat, { 
+                //icon: custom 
+                icon: myIcon
+            });
             map.addOverlay(marker);
+            //markerstart();
+            // 开启拖拽功能
+//marker.enableDragging();
+
+// 监听标记拖动结束事件
+/*marker.addEventListener('dragend', function(e) {
+    var newPosition = e.point;
+    var lnglat=map.mercatorToLnglat(newPosition.lng , newPosition.lat);
+
+    // 复制移动后的坐标
+    var copyText = document.createElement('input');
+    copyText.value = '"lng": "'+lnglat[0] + '",\r\n"lat": "' + lnglat[1]+'",';
+    document.body.appendChild(copyText);
+    copyText.select();
+    document.execCommand('copy');
+    document.body.removeChild(copyText);
+
+    alert('已复制新位置坐标！'+ lnglat[0] + ', ' + lnglat[1]);
+});*/
 
 
             // 点击标记点，显示信息框
@@ -558,19 +878,21 @@ window.addEventListener("orientationchange", checkOrientation);
             marker.addEventListener("click", function(){
                 //this.openInfoWindow(infoWindow);
                 document.getElementById('itemModal').style.display = 'block';
-                document.getElementById('iM_name').innerText = infospot.name;
+                document.getElementsByClassName("modal-content")[0].style.backgroundImage = 'url(images/'+infospot.id+'.png)'
+                //document.getElementById('iM_name').innerText = infospot.name;
                 //document.getElementById('iM_address').innerText = infospot.address;
-                document.getElementById('iM_desc').innerText = infospot.desc;
-                document.getElementById('iM_open_at').innerText = infospot.open_at;
+                //document.getElementById('iM_desc').innerText = infospot.desc;
+                //document.getElementById('iM_open_at').innerText = infospot.open_at;
                 document.getElementById('itemModal').dataset.lat = infospot.lat;
                 document.getElementById('itemModal').dataset.lng = infospot.lng;
                 document.getElementById('itemModal').dataset.phone = infospot.phone;
+                document.getElementById('itemModal').dataset.iM_name = infospot.name;
             });
-            var label = new BMapGL.Label(infospot.name, {       // 创建文本标注
+            /*var label = new BMapGL.Label(infospot.name, {       // 创建文本标注
                 position: infospot.lnglat,                          // 设置标注的地理位置
                 offset: new BMapGL.Size(-30, -20)           // 设置标注的偏移量
             })  
-            map.addOverlay(label);       
+            map.addOverlay(label); */      
         }
 
         function addMapMask(name){
@@ -603,7 +925,7 @@ window.addEventListener("orientationchange", checkOrientation);
                         strokeWeight: 3,
                         strokeOpacity: 1
                     });
-                    map.addOverlay(border);
+                    //map.addOverlay(border);
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -677,7 +999,7 @@ window.addEventListener("orientationchange", checkOrientation);
         //创建控件元素
         var myLineSelect = new LineSelect();
         //添加到地图中
-        map.addControl(myLineSelect);
+        //map.addControl(myLineSelect);
 
         var maptype = BMAP_SATELLITE_MAP;
          //定义一个控件类
@@ -718,10 +1040,106 @@ window.addEventListener("orientationchange", checkOrientation);
         //创建控件元素
         var mymapChange = new mapChange();
         //添加到地图中
-        map.addControl(mymapChange);
-    var zoomCtrl = new BMapGL.ZoomControl({offset:new BMapGL.Size(30,80)});  // 添加缩放控件
-    map.addControl(zoomCtrl);
+        //map.addControl(mymapChange);
+    //var zoomCtrl = new BMapGL.ZoomControl({offset:new BMapGL.Size(30,80)});  // 添加缩放控件
+    //map.addControl(zoomCtrl);
 
+    // 自定义放大控件
+function ZoomInControl() {
+    this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+    this.defaultOffset = new BMapGL.Size(10, 100);
+}
+
+ZoomInControl.prototype = new BMapGL.Control();
+
+ZoomInControl.prototype.initialize = function(map) {
+    var div = document.createElement("div");
+    div.style.width = "48px";
+    div.style.height = "48px";
+    div.style.backgroundImage = 'url("images/zoom-in.png")'; // 放大图标
+    div.style.backgroundSize = 'cover';
+    div.style.cursor = "pointer";
+    div.onclick = function() {
+        map.zoomIn();
+    };
+    map.getContainer().appendChild(div);
+    return div;
+};
+
+// 自定义缩小控件
+function ZoomOutControl() {
+    this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+    this.defaultOffset = new BMapGL.Size(10, 40);
+}
+
+ZoomOutControl.prototype = new BMapGL.Control();
+
+ZoomOutControl.prototype.initialize = function(map) {
+    var div = document.createElement("div");
+    div.style.width = "48px";
+    div.style.height = "48px";
+    div.style.backgroundImage = 'url("images/zoom-out.png")'; // 缩小图标
+    div.style.backgroundSize = 'cover';
+    div.style.cursor = "pointer";
+    div.onclick = function() {
+        map.zoomOut();
+    };
+    map.getContainer().appendChild(div);
+    return div;
+};
+
+// 添加自定义控件到地图
+map.addControl(new ZoomInControl());
+map.addControl(new ZoomOutControl());
+
+// 自定义音乐控件
+function musicControl() {
+    this.defaultAnchor = BMAP_ANCHOR_TOP_RIGHT;
+    this.defaultOffset = new BMapGL.Size(10, 10);
+}
+
+musicControl.prototype = new BMapGL.Control();
+
+musicControl.prototype.initialize = function(map) {
+    var div = document.createElement("div");
+    div.style.width = "48px";
+    div.style.height = "48px";
+    div.style.backgroundImage = 'url("images/music-open.png")'; 
+    div.style.backgroundSize = 'cover';
+    div.style.cursor = "pointer";
+    div.onclick = function() {
+        if(div.style.backgroundImage == 'url("images/music-open.png")'){
+            div.style.backgroundImage = 'url("images/music-close.png")';
+        }else{
+            div.style.backgroundImage = 'url("images/music-open.png")';
+        }
+    };
+    map.getContainer().appendChild(div);
+    return div;
+};
+map.addControl(new musicControl());
+
+// 自定义线路控件
+function lineControl() {
+    this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+    this.defaultOffset = new BMapGL.Size(10, 180);
+}
+
+lineControl.prototype = new BMapGL.Control();
+
+lineControl.prototype.initialize = function(map) {
+    var div = document.createElement("div");
+    div.style.width = "56px";
+    div.style.height = "56px";
+    div.style.backgroundImage = 'url("images/line-btn.png")'; 
+    div.style.backgroundSize = 'cover';
+    div.style.cursor = "pointer";
+    div.onclick = function() {
+    };
+    map.getContainer().appendChild(div);
+    return div;
+};
+map.addControl(new lineControl());
     </script>
 </body>
 </html>
