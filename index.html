@@ -886,6 +886,7 @@ function handleMouseEvent(event, eventType) {
         addMapMask('nax.json');
 
         var geoData = null;
+        var lineData = null;
         fetch('geo.json')
             .then(response => response.json())
             .then(data => {
@@ -894,6 +895,13 @@ function handleMouseEvent(event, eventType) {
                     infospot.lnglat = new BMapGL.Point(infospot.lng, infospot.lat);
                     addMarker(infospot);
                 });
+                fetch('line.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        lineData = data;
+                        fetchRegionDetails(lineData, geoData);
+                    })
+                    .catch(error => console.error('Error:', error));
             })
             .catch(error => console.error('Error:', error));
 
@@ -901,15 +909,6 @@ function handleMouseEvent(event, eventType) {
             map: map
         });*/
 
-
-        var lineData = null;
-        fetch('line.json')
-            .then(response => response.json())
-            .then(data => {
-                lineData = data;
-                fetchRegionDetails(lineData, geoData);
-            })
-            .catch(error => console.error('Error:', error));
 
         var plcolor = ['#C3FFA5', '#B5EF60', '#197BAA', '#499330', '#A1ADE0', '#D7AF90', '#326CA8', '#6E9581'];
 
