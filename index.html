@@ -17,13 +17,14 @@
             }
         }
     </script>
-    <!--<script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
 <script>
   // VConsole 默认会挂载到 `window.VConsole` 上
   var vConsole = new window.VConsole();
-</script>-->
+</script>
     <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ymNFeWvGjzIRnGeXjXb91AGUseb2IROT" type="text/javascript"></script>
     <script type="text/javascript" src="js/AreaRestriction.js"></script>
+    
     <script src="//code.bdstatic.com/npm/mapvgl@1.0.0-beta.141/dist/mapvgl.min.js" type="text/javascript"></script>
     <!--<script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>-->
     <style>
@@ -205,6 +206,7 @@
         <div class="loader-progress-bar"></div>
     </div>
     <div style="position: absolute;z-index: 1;">
+        <img src="images/map.jpg" style="width:1px;height:1px;" onload="imgloaded();">
         <img src="images/1.png" style="width:1px;height:1px;" onload="imgloaded();">
         <img src="images/2.png" style="width:1px;height:1px;" onload="imgloaded();">
         <img src="images/3.png" style="width:1px;height:1px;" onload="imgloaded();">
@@ -229,8 +231,6 @@
         <img src="images/22.png" style="width:1px;height:1px;" onload="imgloaded();">
         <img src="images/23.png" style="width:1px;height:1px;" onload="imgloaded();">
         <img src="images/24.png" style="width:1px;height:1px;" onload="imgloaded();">
-        <img src="images/map.jpg" style="width:1px;height:1px;" onload="imgloaded();">
-        <img src="images/line8.jpg" style="width:1px;height:1px;" onload="imgloaded();">
     </div>
     <div class="ydy-container" id="ydy-container" onclick="document.getElementById('backgroundMusic').play()">
         <img src="images/ydy-map.png" class="button" style="left: 18vh;/*bottom: calc((100vw - 35vh) / 10);*/"
@@ -317,7 +317,7 @@
             padding: 15px;
             border-radius: 15px;
             border: 2px solid #99cceb;
-            font-size: 20px;
+            font-size: 18px;
         }
         }
 
@@ -364,7 +364,7 @@
             padding: 15px;
             border-radius: 15px;
             border: 2px solid #99cceb;
-            font-size: 20px;
+            font-size: 18px;
         }
         }
 
@@ -487,213 +487,8 @@
     </div>
     <div id="lineSelect-container" class="lineSelect-container" style="display: none;"></div>
     <div id="lineDesc-container" class="lineDesc-container" style="display: none;"></div>
-
     <script type="text/javascript">
-        /*var overlayCanvas = document.getElementById('overlayCanvas');
-
-overlayCanvas.addEventListener('click', function(e) {
-    handleMouseEvent(e, 'click'); // 处理并传递事件
-}, { passive: true });
-overlayCanvas.addEventListener('mousedown', function(e) {
-    handleMouseEvent(e, 'mousedown'); // 处理并传递事件
-}, { passive: true });
-overlayCanvas.addEventListener('mouseup', function(e) {
-    handleMouseEvent(e, 'mouseup'); // 处理并传递事件
-}, { passive: true });
-
-overlayCanvas.addEventListener('touchstart', function(e) {
-    handleTouchEvent(e, 'touchstart'); // 处理并传递事件
-}, { passive: true });
-
-overlayCanvas.addEventListener('touchmove', function(e) {
-    handleTouchEvent(e, 'touchmove');
-}, { passive: true });
-
-overlayCanvas.addEventListener('touchend', function(e) {
-    handleTouchEvent(e, 'touchend');
-}, { passive: true });
-
-function handleTouchEvent(event, eventType) {
-    const pageHeight = document.documentElement.clientHeight;
-    var mapCanvas = document.getElementById('platform');
-    console.log(event);
-    var newEvent={touches:[],changedTouches:[]};
-    for (let i = 0; i < event.touches.length; i++) {
-    var touch = event.touches[i];
-    newEvent.touches[i] = touch;
-
-    // 原始坐标
-    const originalX = touch.clientX;
-    const originalY = touch.clientY;
-    
-    // 旋转90度后的坐标计算
-    const newX = pageHeight - originalY;
-    const newY = originalX;
-    newEvent.touches[i].clientX = newX;
-    newEvent.touches[i].clientY = newY;
-
-    // 在这里可以对转换后的坐标进行进一步处理，比如记录、比较或传递给其他元素
-    console.log(`Rotated touch ${i}: `,newEvent.touches[i]);
-
-    // 和之前一样，这里仅作为示例，实际应用中可能需要根据需求将这些坐标用于不同的目的
-    }
-    for (let i = 0; i < event.changedTouches.length; i++) {
-        var touch = event.changedTouches[i];
-    newEvent.changedTouches[i] = touch;
-
-    // 原始坐标
-    const originalX = touch.clientX;
-    const originalY = touch.clientY;
-    
-    // 旋转90度后的坐标计算
-    const newX = pageHeight - originalY;
-    const newY = originalX;
-    newEvent.changedTouches[i].clientX = newX;
-    newEvent.changedTouches[i].clientY = newY;
-
-    // 在这里可以对转换后的坐标进行进一步处理，比如记录、比较或传递给其他元素
-    console.log(`Rotated touch ${i}: `,newEvent.changedTouches[i]);
-
-    // 和之前一样，这里仅作为示例，实际应用中可能需要根据需求将这些坐标用于不同的目的
-    }
-    const simulatedEvent = new TouchEvent(event.type,newEvent);
-
-  mapCanvas.dispatchEvent(simulatedEvent);
-
-    // 触发百度地图的相应事件（模拟原生事件可能较复杂，以下仅为示意）
-    // 注意：这一步较为复杂，因为需要模拟原生事件并且可能需要深入百度地图API
-    // 这里假设有一个方法可以用来传递坐标，实际上需要查阅百度地图API文档或使用特定技巧
-    // simulateMapTouchEvent(mapCanvas, eventType, {clientX: mapX, clientY: mapY});
-}
-function handleMouseEvent(event, eventType) {
-    const pageHeight = document.documentElement.clientHeight;
-    var mapCanvas = document.getElementById('platform');
-    console.log(event);
-    const simulatedEvent = new MouseEvent(event.type,event);
-
-  mapCanvas.dispatchEvent(simulatedEvent);
-
-}*/
-        var startX, startY, centerPoint, Gzoom;
-        Gzoom = false;
-
-        // 定义所需的经纬度范围
-        var pStart = new BMapGL.Point(116.08, 23.66);
-        var pEnd = new BMapGL.Point(117.28, 23.034);
-        var viewbounds = new BMapGL.Bounds(new BMapGL.Point(pStart.lng, pEnd.lat), new BMapGL.Point(pEnd.lng, pStart.lat));
-
-        function blurmap(){
-            document.getElementById("container").classList.add('blur')
-        }
-        function noblurmap(){
-            document.getElementById("container").classList.remove('blur')
-        }
-
-        function checkOrientation() {
-            if (window.orientation == 90 || window.orientation == -90) { // 横屏
-                document.querySelector("html").classList.remove('landscape')
-                map.enableDragging();
-            } else { // 竖屏
-                if (window.innerWidth < window.innerHeight) {
-                    document.querySelector("html").classList.add('landscape')
-                    map.disableDragging();
-
-                } else {
-                    document.querySelector("html").classList.remove('landscape')
-                    map.enableDragging();
-
-                }
-            }
-            var mapCanvas = document.getElementById('platform');
-            var haslimit = false;
-            mapCanvas.addEventListener('touchstart', function (e) {
-                const firstTouch = event.touches[0];
-                startX = firstTouch.clientX;
-                startY = firstTouch.clientY;
-                if (event.touches.length == 2) {
-                    Gzoom = true;
-                    centerPoint = map.getCenter();
-                }
-            });
-            mapCanvas.addEventListener('touchmove', function (e) {
-                if (event.touches.length == 1) {
-                    const firstTouch = event.touches[0];
-                    let currentX = firstTouch.clientX;
-                    let currentY = firstTouch.clientY;
-                    let diffX = currentX - startX;
-                    let diffY = currentY - startY;
-                    var bounds = map.getBounds(); // 获取当前地图可视范围
-                    var center = map.getCenter();
-
-                    // 判断地图边界是否超出指定范围
-                    /*if (bounds.getSouthWest().lng < southWest.lng || bounds.getSouthWest().lat < southWest.lat ||
-                        bounds.getNorthEast().lng > northEast.lng || bounds.getNorthEast().lat > northEast.lat) {
-                        map.panBy(0, 0); // 禁止地图继续拖动，将地图位置还原到原位置
-                    }else{
-                            map.panBy(diffY,-diffX,{noAnimation:true});
-
-                    }*/
-                     // 将经纬度坐标转换为屏幕像素坐标
-                        map.panBy(diffY, -diffX, {
-                            noAnimation: true
-                        });
-                    BMapGLLib.AreaRestriction._mapMoveendEvent(e);
-                    startX = currentX;
-                    startY = currentY;
-                }
-            });
-            mapCanvas.addEventListener('touchend', function (e) {
-                startX = 0;
-                startY = 0;
-                if (Gzoom) {
-                    setTimeout(function () {
-                        map.panTo(centerPoint, {
-                            noAnimation: true
-                        });
-                    }, 50);
-                    Gzoom = false;
-                }
-            });
-            /*mapCanvas.addEventListener('zoomstart', function (e) {
-                centerPoint = map.getCenter();
-                console.log(centerPoint);
-            });
-            mapCanvas.addEventListener('zoomend', function (e) {
-                map.panTo(centerPoint);
-            });*/
-        }
-
-        /*window.addEventListener("DOMContentLoaded", function () {
-            setTimeout(function () {
-                document.getElementById('container').style.visibility = 'visible';
-                document.getElementById('loading-container').style.display = 'none';
-
-            }, 1750);
-        });*/
-        var imgcount = 0;
-        var imgOverlay;
-        function imgloaded(){
-            imgcount++;
-            if(imgcount>=27){
-                imgOverlay = new BMapGL.GroundOverlay(viewbounds, {
-                    type: 'image',
-                    url: 'images/map.jpg',
-                    opacity: 1
-
-                });
-                map.addOverlay(imgOverlay);
-                document.getElementById('container').style.visibility = 'visible';
-                document.getElementById('loading-container').style.display = 'none';
-                document.getElementsByClassName('anchorBL')[0].style.visibility = 'hidden';
-                document.getElementsByClassName('anchorBL')[0].style.opacity = '0';
-
-            }
-        }
-        // 在页面加载和屏幕旋转时检测屏幕方向
-        window.addEventListener("load", checkOrientation);
-        window.addEventListener("orientationchange", checkOrientation);
-
-
+        
         var map = new BMapGL.Map("container", {
             minZoom: 11,
             maxZoom: 13,
@@ -856,6 +651,217 @@ function handleMouseEvent(event, eventType) {
         map.centerAndZoom(new BMapGL.Point(116.707825, 23.359542), 11);
         //map.disablePinchToZoom();
         map.enableScrollWheelZoom();
+        var imgcount = 0;
+        var imgOverlay;
+        function imgloaded(){
+            imgcount++;
+            if(imgcount>=25){
+                imgOverlay = new BMapGL.GroundOverlay(viewbounds, {
+                    type: 'image',
+                    url: 'images/map.jpg',
+                    opacity: 1
+
+                });
+                map.addOverlay(imgOverlay);
+                document.getElementById('container').style.visibility = 'visible';
+                document.getElementById('loading-container').style.display = 'none';
+                document.getElementsByClassName('anchorBL')[0].style.visibility = 'hidden';
+                document.getElementsByClassName('anchorBL')[0].style.opacity = '0';
+
+            }
+        }
+        /*var overlayCanvas = document.getElementById('overlayCanvas');
+
+overlayCanvas.addEventListener('click', function(e) {
+    handleMouseEvent(e, 'click'); // 处理并传递事件
+}, { passive: true });
+overlayCanvas.addEventListener('mousedown', function(e) {
+    handleMouseEvent(e, 'mousedown'); // 处理并传递事件
+}, { passive: true });
+overlayCanvas.addEventListener('mouseup', function(e) {
+    handleMouseEvent(e, 'mouseup'); // 处理并传递事件
+}, { passive: true });
+
+overlayCanvas.addEventListener('touchstart', function(e) {
+    handleTouchEvent(e, 'touchstart'); // 处理并传递事件
+}, { passive: true });
+
+overlayCanvas.addEventListener('touchmove', function(e) {
+    handleTouchEvent(e, 'touchmove');
+}, { passive: true });
+
+overlayCanvas.addEventListener('touchend', function(e) {
+    handleTouchEvent(e, 'touchend');
+}, { passive: true });
+
+function handleTouchEvent(event, eventType) {
+    const pageHeight = document.documentElement.clientHeight;
+    var mapCanvas = document.getElementById('platform');
+    console.log(event);
+    var newEvent={touches:[],changedTouches:[]};
+    for (let i = 0; i < event.touches.length; i++) {
+    var touch = event.touches[i];
+    newEvent.touches[i] = touch;
+
+    // 原始坐标
+    const originalX = touch.clientX;
+    const originalY = touch.clientY;
+    
+    // 旋转90度后的坐标计算
+    const newX = pageHeight - originalY;
+    const newY = originalX;
+    newEvent.touches[i].clientX = newX;
+    newEvent.touches[i].clientY = newY;
+
+    // 在这里可以对转换后的坐标进行进一步处理，比如记录、比较或传递给其他元素
+    console.log(`Rotated touch ${i}: `,newEvent.touches[i]);
+
+    // 和之前一样，这里仅作为示例，实际应用中可能需要根据需求将这些坐标用于不同的目的
+    }
+    for (let i = 0; i < event.changedTouches.length; i++) {
+        var touch = event.changedTouches[i];
+    newEvent.changedTouches[i] = touch;
+
+    // 原始坐标
+    const originalX = touch.clientX;
+    const originalY = touch.clientY;
+    
+    // 旋转90度后的坐标计算
+    const newX = pageHeight - originalY;
+    const newY = originalX;
+    newEvent.changedTouches[i].clientX = newX;
+    newEvent.changedTouches[i].clientY = newY;
+
+    // 在这里可以对转换后的坐标进行进一步处理，比如记录、比较或传递给其他元素
+    console.log(`Rotated touch ${i}: `,newEvent.changedTouches[i]);
+
+    // 和之前一样，这里仅作为示例，实际应用中可能需要根据需求将这些坐标用于不同的目的
+    }
+    const simulatedEvent = new TouchEvent(event.type,newEvent);
+
+  mapCanvas.dispatchEvent(simulatedEvent);
+
+    // 触发百度地图的相应事件（模拟原生事件可能较复杂，以下仅为示意）
+    // 注意：这一步较为复杂，因为需要模拟原生事件并且可能需要深入百度地图API
+    // 这里假设有一个方法可以用来传递坐标，实际上需要查阅百度地图API文档或使用特定技巧
+    // simulateMapTouchEvent(mapCanvas, eventType, {clientX: mapX, clientY: mapY});
+}
+function handleMouseEvent(event, eventType) {
+    const pageHeight = document.documentElement.clientHeight;
+    var mapCanvas = document.getElementById('platform');
+    console.log(event);
+    const simulatedEvent = new MouseEvent(event.type,event);
+
+  mapCanvas.dispatchEvent(simulatedEvent);
+
+}*/
+        var startX, startY, centerPoint, Gzoom;
+        Gzoom = false;
+
+        // 定义所需的经纬度范围
+        var pStart = new BMapGL.Point(116.08, 23.66);
+        var pEnd = new BMapGL.Point(117.28, 23.034);
+        var viewbounds = new BMapGL.Bounds(new BMapGL.Point(pStart.lng, pEnd.lat), new BMapGL.Point(pEnd.lng, pStart.lat));
+
+        function blurmap(){
+            document.getElementById("container").classList.add('blur')
+        }
+        function noblurmap(){
+            document.getElementById("container").classList.remove('blur')
+        }
+
+        function checkOrientation() {
+            if (window.orientation == 90 || window.orientation == -90) { // 横屏
+                document.querySelector("html").classList.remove('landscape')
+                map.enableDragging();
+            } else { // 竖屏
+                if (window.innerWidth < window.innerHeight) {
+                    document.querySelector("html").classList.add('landscape')
+                    map.disableDragging();
+
+                } else {
+                    document.querySelector("html").classList.remove('landscape')
+                    map.enableDragging();
+
+                }
+            }
+            var mapCanvas = document.getElementById('platform');
+            var haslimit = false;
+            mapCanvas.addEventListener('touchstart', function (e) {
+                const firstTouch = event.touches[0];
+                startX = firstTouch.clientX;
+                startY = firstTouch.clientY;
+                if (event.touches.length == 2) {
+                    Gzoom = true;
+                    centerPoint = map.getCenter();
+                }
+            });
+            mapCanvas.addEventListener('touchmove', function (e) {
+                if (event.touches.length == 1) {
+                    const firstTouch = event.touches[0];
+                    let currentX = firstTouch.clientX;
+                    let currentY = firstTouch.clientY;
+                    let diffX = currentX - startX;
+                    let diffY = currentY - startY;
+                    var bounds = map.getBounds(); // 获取当前地图可视范围
+                    var center = map.getCenter();
+
+                    // 判断地图边界是否超出指定范围
+                    /*if (bounds.getSouthWest().lng < southWest.lng || bounds.getSouthWest().lat < southWest.lat ||
+                        bounds.getNorthEast().lng > northEast.lng || bounds.getNorthEast().lat > northEast.lat) {
+                        map.panBy(0, 0); // 禁止地图继续拖动，将地图位置还原到原位置
+                    }else{
+                            map.panBy(diffY,-diffX,{noAnimation:true});
+
+                    }*/
+                     // 将经纬度坐标转换为屏幕像素坐标
+                        map.panBy(diffY, -diffX, {
+                            noAnimation: true
+                        });
+                    BMapGLLib.AreaRestriction._mapMoveendEvent(e);
+                    startX = currentX;
+                    startY = currentY;
+                }
+                map.setHeading(0);
+            });
+            mapCanvas.addEventListener('touchend', function (e) {
+                startX = 0;
+                startY = 0;
+                if (Gzoom) {
+                    setTimeout(function () {
+                        map.panTo(centerPoint, {
+                            noAnimation: true
+                        });
+                    }, 50);
+                    Gzoom = false;
+                }
+                map.setHeading(0);
+            });
+            /*mapCanvas.addEventListener('zoomstart', function (e) {
+                centerPoint = map.getCenter();
+                console.log(centerPoint);
+            });
+            mapCanvas.addEventListener('zoomend', function (e) {
+                map.panTo(centerPoint);
+            });*/
+        }
+
+        /*window.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                document.getElementById('container').style.visibility = 'visible';
+                document.getElementById('loading-container').style.display = 'none';
+
+            }, 1750);
+        });*/
+        // 在页面加载和屏幕旋转时检测屏幕方向
+        window.addEventListener("load", checkOrientation);
+        window.addEventListener("orientationchange", checkOrientation);
+
+
+        map.addEventListener('dragging', function(){map.setHeading(0);});
+        map.addEventListener('moving', function(){map.setHeading(0);});
+        map.addEventListener('zoomstart', function(){map.setHeading(0);});
+        map.addEventListener('zoomend', function(){map.setHeading(0);});
         //map.setBounds(new BMapGL.Bounds(new BMapGL.Point(116.247892,23.249313),new BMapGL.Point(117.176955,23.528463)));
         
         /*var southWestmarker = new BMapGL.Marker(pStart);
@@ -935,7 +941,7 @@ function handleMouseEvent(event, eventType) {
                     for (var i = 0; i < elements.length; i++) {
                         if(this == elements[i]){
                             elements[i].style.color = '#ffffff';
-                            imgOverlay.setImage('images/line8.jpg');
+                            imgOverlay.setImage('images/line'+(i+1)+'.jpg');
                         }else{
                             elements[i].style.color = '#aaa';
                         }
