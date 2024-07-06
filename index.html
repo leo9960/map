@@ -87,7 +87,7 @@
                 color: #083054;
                 position: absolute;
                 bottom: 30vh;
-                left: calc((100vw - 50vh) / 2);
+                left: calc((100vw - 30vw) / 2);
                 font-size: 20px;
                 font-weight: bold;
                 text-align: center;
@@ -127,7 +127,7 @@
                 color: #083054;
                 position: absolute;
                 bottom: 30vh;
-                left: calc((100vw - 50vh) / 2);
+                left: calc((100vw - 30vw) / 2);
                 font-size: 20px;
             }
         }
@@ -164,7 +164,7 @@
                 color: #083054;
                 position: absolute;
                 bottom: 28vw;
-                left: calc((100vh - 50vw) / 2);
+                left: calc((100vh - 70vw) / 2);
                 font-size: 18px;
                 font-weight: bold;
                 text-align: center;
@@ -204,7 +204,7 @@
                 color: #083054;
                 position: absolute;
                 bottom: 28vw;
-                left: calc((100vh - 50vw) / 2);
+                left: calc((100vh - 70vw) / 2);
                 font-size: 18px;
             }
         }
@@ -512,7 +512,7 @@
         </div>
     </div>
     <div id="lineSelect-container" class="lineSelect-container zhankai" style="display: none;">
-        <div class="arrow-btn" id="arrow-btn" onclick="zhankaizhedie()"><</div>
+        <div class="arrow-btn" id="arrow-btn" onclick="zhankaizhedie()"><img src="images/close.png" style="width: 100%;height: 100%;"/></div>
     </div>
     <div id="lineDesc-container" class="lineDesc-container" style="display: none;"></div>
     <script type="text/javascript">
@@ -686,11 +686,11 @@
             if(document.getElementById("lineSelect-container").classList.contains('zhankai')){
                 document.getElementById("lineSelect-container").classList.add('zhedie');
                 document.getElementById("lineSelect-container").classList.remove('zhankai');
-                document.getElementById("arrow-btn").innerText = '>';
+                document.getElementById("arrow-btn").innerHTML = '<img src="images/close.png" style="width: 100%;height: 100%;rotate: 180deg;"/>';
             }else{
                 document.getElementById("lineSelect-container").classList.add('zhankai');
                 document.getElementById("lineSelect-container").classList.remove('zhedie');
-                document.getElementById("arrow-btn").innerText = '<';
+                document.getElementById("arrow-btn").innerHTML = '<img src="images/close.png" style="width: 100%;height: 100%;"/>';
             }
         }
 
@@ -818,6 +818,7 @@
                     for (var i in matchedRegions) {
                         str += "【" + matchedRegions[i].name + "】 - ";
                     }
+                    str = str.slice(0,-2);
                     document.getElementById('lineDesc-container').innerText = str;
                     document.getElementById('lineDesc-container').style.display = 'block';
                 }
@@ -1129,7 +1130,7 @@
                     document.getElementById('lineSelect-container').style.display = 'flex';
                     document.getElementById("lineSelect-container").classList.add('zhankai');
                     document.getElementById("lineSelect-container").classList.remove('zhedie');
-                    document.getElementById("arrow-btn").innerText = '<';
+                    document.getElementById("arrow-btn").innerHTML = '<img src="images/close.png" style="width: 100%;height: 100%;"/>';
                 }
             };
             map.getContainer().appendChild(div);
