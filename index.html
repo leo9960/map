@@ -499,6 +499,7 @@
                 map.addControl(new ZoomOutControl());
                 map.addControl(new musicControl());
                 map.addControl(new lineControl());
+                updateimgOverlay('images/map.jpg');
                 checkOrientation();
                 try {
                     BMapGLLib.AreaRestriction.setBounds(map, viewbounds);
@@ -565,7 +566,6 @@
         function imgloaded() {
             imgcount++;
             if (imgcount >= 35) {
-                updateimgOverlay('images/map.jpg');
                 document.getElementById('container').style.visibility = 'visible';
                 document.getElementById('loading-container').style.display = 'none';
                 document.getElementsByClassName('anchorBL')[0].style.visibility = 'hidden';
