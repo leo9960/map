@@ -56,6 +56,14 @@
         /* 横屏样式 */
         @media screen and (orientation: landscape) {
 
+            .logo-container{
+                position: absolute;
+                z-index: 99999;
+                top: 4vh;
+                left: 9vh;
+                width: 12vh;
+                height: 12vh;
+            }
             .loading-bg {
                 width: 100vw;
                 height: 100vh;
@@ -68,6 +76,24 @@
                 height: 100vh;
                 background-size: cover;
                 background-position: center;
+            }
+            
+            .enter-btn{
+                width: 30vw;
+                height: 6vh;
+                border-radius: 50vw;
+                border: 0.125em solid;
+                color: #083054;
+                position: absolute;
+                bottom: 30vh;
+                left: calc((100vw - 50vh) / 2);
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                line-height: 36px;
+                justify-content: center;
+                display: flex;
+                align-items: center;
             }
 
             .ydy-container {
@@ -97,15 +123,24 @@
                 height: 6vh;
                 border-radius: 50vw;
                 border: 0.125em solid;
-                color: #69bff0;
+                color: #083054;
                 position: absolute;
                 bottom: 30vh;
                 left: calc((100vw - 50vh) / 2);
+                font-size: 20px;
             }
         }
 
         @media screen and (orientation: portrait) {
 
+            .logo-container{
+                position: absolute;
+                z-index: 99999;
+                top: 4vw;
+                left: 9vw;
+                width: 18vw;
+                height: 18vw;
+            }
             .loading-bg {
                 width: 100vh;
                 height: 100vw;
@@ -118,6 +153,23 @@
                 height: 100vw;
                 background-size: cover;
                 background-position: center;
+            }
+            .enter-btn{
+                width: 70vw;
+                height: 3vh;
+                border-radius: 50vw;
+                border: 0.125em solid;
+                color: #083054;
+                position: absolute;
+                bottom: 30vw;
+                left: calc((100vh - 50vw) / 2);
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                line-height: 20px;
+                justify-content: center;
+                display: flex;
+                align-items: center;
             }
 
             .ydy-container {
@@ -144,13 +196,14 @@
 
             .loader-progress-bar {
                 width: 70vw;
-                height: 2vh;
+                height: 3vh;
                 border-radius: 50vw;
                 border: 0.125em solid;
-                color: #69bff0;
+                color: #083054;
                 position: absolute;
                 bottom: 30vw;
                 left: calc((100vh - 50vw) / 2);
+                font-size: 20px;
             }
         }
 
@@ -216,10 +269,14 @@
 </head>
 
 <body>
+    <div class="logo-container">
+        <img src="images/logo.png" style="width: 100%;height: 100%;">
+    </div>
     <audio id="backgroundMusic" src="mp3/bgm1.mp3" loop></audio>
-    <div class="loading-container" id="loading-container" onclick="document.getElementById('backgroundMusic').play()">
+    <div class="loading-container" id="loading-container">
         <img src="images/loading-bg.jpg" class="loading-bg">
-        <div class="loader-progress-bar"></div>
+        <div class="loader-progress-bar" id="loader-progress-bar"></div>
+        <div class="enter-btn" id="enter-btn" style="display: none;" onclick="document.getElementById('backgroundMusic').play();document.getElementById('loading-container').style.display = 'none';">点此进入</div>
     </div>
     <div style="position: absolute;z-index: 0;display: none;" id="loadingImgCache"></div>
     <div class="ydy-container" id="ydy-container" onclick="document.getElementById('backgroundMusic').play()">
@@ -281,10 +338,10 @@
 
             .lineSelect-container {
                 position: absolute;
-                width: 40vh;
-                height: 100vw;
+                width: 41vh;
+                height: 102vw;
                 background-color: rgba(0, 0, 0, 0.75);
-                top: 0;
+                top: -1vw;
                 display: flex;
                 align-content: center;
                 flex-direction: column;
@@ -292,10 +349,10 @@
                 z-index: 999;
             }
             .zhedie{
-                left: -36vh;
+                left: -37vh;
             }
             .zhankai{
-                left: 0;
+                left: -1vh;
             }
             .arrow-btn{    
                 position: absolute;
@@ -327,7 +384,7 @@
                 padding: 15px;
                 border-radius: 15px;
                 border: 2px solid #99cceb;
-                font-size: 16px;
+                font-size: 14px;
             }
         }
 
@@ -392,7 +449,7 @@
                 padding: 15px;
                 border-radius: 15px;
                 border: 2px solid #99cceb;
-                font-size: 16px;
+                font-size: 14px;
             }
         }
 
@@ -569,7 +626,8 @@
             imgcount++;
             if (imgcount >= 35) {
                 document.getElementById('container').style.visibility = 'visible';
-                document.getElementById('loading-container').style.display = 'none';
+                document.getElementById('loader-progress-bar').style.display = 'none';
+                document.getElementById('enter-btn').style.display = 'flex';
             }
         }
         function preload(){
