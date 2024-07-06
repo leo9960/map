@@ -68,6 +68,7 @@
                 width: 100vw;
                 height: 100vh;
                 object-fit: cover;
+                object-position: center;
             }
 
             /* 在这里定义横屏时的样式 */
@@ -136,15 +137,16 @@
             .logo-container{
                 position: absolute;
                 z-index: 99999;
-                top: 4vw;
-                left: 9vw;
-                width: 18vw;
-                height: 18vw;
+                top: 3vw;
+                left: 3vw;
+                width: 14vw;
+                height: 14vw;
             }
             .loading-bg {
                 width: 100vh;
                 height: 100vw;
                 object-fit: cover;
+                object-position: center;
             }
 
             .loading-container {
@@ -156,17 +158,17 @@
             }
             .enter-btn{
                 width: 70vw;
-                height: 3vh;
+                height: 4vh;
                 border-radius: 50vw;
                 border: 0.125em solid;
                 color: #083054;
                 position: absolute;
-                bottom: 30vw;
+                bottom: 28vw;
                 left: calc((100vh - 50vw) / 2);
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: bold;
                 text-align: center;
-                line-height: 20px;
+                line-height: 18px;
                 justify-content: center;
                 display: flex;
                 align-items: center;
@@ -196,14 +198,14 @@
 
             .loader-progress-bar {
                 width: 70vw;
-                height: 3vh;
+                height: 4vh;
                 border-radius: 50vw;
                 border: 0.125em solid;
                 color: #083054;
                 position: absolute;
-                bottom: 30vw;
+                bottom: 28vw;
                 left: calc((100vh - 50vw) / 2);
-                font-size: 20px;
+                font-size: 18px;
             }
         }
 
@@ -300,11 +302,11 @@
             /* 在这里定义竖屏时的样式 */
             .modal-content {
                 background-size: cover;
-                width: 177.78vw;
+                width: 170.78vw;
                 height: 100vw;
                 position: relative;
                 background-position: center;
-                left: calc((100vh - 177.78vw) / 2);
+                left: calc((100vh - 170.78vw) / 2);
                 max-width: 100vh;
                 max-height: 56.25vh;
             }
@@ -386,6 +388,13 @@
                 border: 2px solid #99cceb;
                 font-size: 14px;
             }
+            .close {
+                position: absolute;
+                top: 6vh;
+                right: 3.5vh;
+                cursor: pointer;
+                width: 5%;
+            }
         }
 
         /* 横屏样式 */
@@ -451,6 +460,13 @@
                 border: 2px solid #99cceb;
                 font-size: 14px;
             }
+            .close {
+                position: absolute;
+                top: 11.5vh;
+                right: 6vh;
+                cursor: pointer;
+                width: 5%;
+            }
         }
 
         .modal {
@@ -464,13 +480,6 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-        }
-        .close {
-            position: absolute;
-            top: 5vh;
-            right: 3vh;
-            cursor: pointer;
-            width: 5%;
         }
         .lineitem {
             text-align: left;
