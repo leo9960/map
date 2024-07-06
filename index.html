@@ -501,6 +501,8 @@
                 map.addControl(new lineControl());
                 updateimgOverlay('images/map.jpg');
                 checkOrientation();
+                document.getElementsByClassName('anchorBL')[0].style.visibility = 'hidden';
+                document.getElementsByClassName('anchorBL')[0].style.opacity = '0';
                 try {
                     BMapGLLib.AreaRestriction.setBounds(map, viewbounds);
                 } catch (e) {
@@ -568,9 +570,6 @@
             if (imgcount >= 35) {
                 document.getElementById('container').style.visibility = 'visible';
                 document.getElementById('loading-container').style.display = 'none';
-                document.getElementsByClassName('anchorBL')[0].style.visibility = 'hidden';
-                document.getElementsByClassName('anchorBL')[0].style.opacity = '0';
-
             }
         }
         function preload(){
