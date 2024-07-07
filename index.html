@@ -126,7 +126,7 @@
             }
 
             .ydy-container {
-                background: url('images/ydy.png');
+                background: url('https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy.png');
                 width: 100vw;
                 height: calc(var(--vh, 1vh) * 100);
                 background-size: cover;
@@ -137,7 +137,7 @@
             }
 
             .zdy-container {
-                background: url('images/zdy.png');
+                background: url('https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zdy.png');
                 width: 100vw;
                 height: calc(var(--vh, 1vh) * 100);
                 background-size: cover;
@@ -246,7 +246,7 @@
             }
 
             .zdy-container {
-                background: url('images/zdy.png');
+                background: url('https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zdy.png');
                 width: calc(var(--vh, 1vh) * 100);
                 height: 100vw;
                 background-size: cover;
@@ -346,24 +346,24 @@
 
 <body>
     <div class="logo-container" id="logo-container">
-        <img src="images/logo.png" style="width: 100%;height: 100%;">
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/logo.png" style="width: 100%;height: 100%;">
     </div>
     <div class="music-container" id="music-container">
-        <img src="images/music-close.png" id="music-btn" style="width: 100%;height: 100%;" onclick="musiccontrol(this);">
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png" id="music-btn" style="width: 100%;height: 100%;" onclick="musiccontrol(this);">
     </div>
-    <audio id="backgroundMusic" src="mp3/bgm1.mp3" loop autoplay></audio>
+    <audio id="backgroundMusic" src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/mp3/bgm1.mp3" loop autoplay></audio>
     <div class="loading-container" id="loading-container">
-        <img src="images/loading-bg1.jpg" class="loading-bg">
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/loading-bg1.jpg" class="loading-bg">
         <div class="loader-progress-bar" id="loader-progress-bar"></div>
         <div class="enter-btn" id="enter-btn" style="display: none;" onclick="musiccontrol();document.getElementById('loading-container').style.display = 'none';document.getElementById('logo-container').style.display = 'none';">点此进入</div>
     </div>
     <div style="position: absolute;z-index: 0;display: none;" id="loadingImgCache"></div>
     <div class="ydy-container" id="ydy-container">
-        <img src="images/ydy.png" class="ydy-bg">
-        <img src="images/ydy-map.png" class="ydy-map-btn" 
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy.png" class="ydy-bg">
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy-map.png" class="ydy-map-btn" 
             onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';"
             onload="imgloaded();">
-        <img src="images/ydy-line.png" class="ydy-line-btn" 
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy-line.png" class="ydy-line-btn" 
             onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';use_lineselect=true;"
             onload="imgloaded();">
     </div>
@@ -586,11 +586,11 @@
     <div class="modal" id="itemModal">
         <div class="modal-content">
             <img src="" id="itemModalImg" class="itemModalImg">
-            <img src="images/close.png" alt="Close" class="close"
+            <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/close.png" alt="Close" class="close"
                 onclick="document.getElementById('itemModal').style.display = 'none';document.getElementById('music-container').style.display = 'block';noblurmap();noblurdiv('lineDesc-container');noblurdiv('lineSelect-container');">
-            <img src="images/dhyy.png" alt="Button 1" class="button dhyy-btn"
+            <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/dhyy.png" alt="Button 1" class="button dhyy-btn"
                 onclick="callPhoneNumber(document.getElementById('itemModal').dataset.phone);">
-            <img src="images/yjdh.png" alt="Button 2" class="button yjdh-btn" onclick="yjdh()">
+            <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/yjdh.png" alt="Button 2" class="button yjdh-btn" onclick="yjdh()">
             <script type="text/javascript">
                 function yjdh() {
                     var name = document.getElementById('itemModal').dataset.iM_name;
@@ -610,7 +610,7 @@
         </div>
     </div>
     <div id="lineSelect-container" class="lineSelect-container zhankai" style="display: none;">
-        <div class="arrow-btn" id="arrow-btn" onclick="zhankaizhedie()"><img src="images/close.png" style="width: 100%;height: 100%;"/></div>
+        <div class="arrow-btn" id="arrow-btn" onclick="zhankaizhedie()"><img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/close.png" style="width: 100%;height: 100%;"/></div>
     </div>
     <div id="lineDesc-container" class="lineDesc-container" style="display: none;"></div>
     <script type="text/javascript">
@@ -1156,7 +1156,7 @@
             var div = document.createElement("div");
             div.style.width = "48px";
             div.style.height = "48px";
-            div.style.backgroundImage = 'url("images/zoom-in.png")'; // 放大图标
+            div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zoom-in.png")'; // 放大图标
             div.style.backgroundSize = 'cover';
             div.style.cursor = "pointer";
             div.onclick = function () {
@@ -1178,7 +1178,7 @@
             var div = document.createElement("div");
             div.style.width = "48px";
             div.style.height = "48px";
-            div.style.backgroundImage = 'url("images/zoom-out.png")'; // 缩小图标
+            div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zoom-out.png")'; // 缩小图标
             div.style.backgroundSize = 'cover';
             div.style.cursor = "pointer";
             div.onclick = function () {
@@ -1218,10 +1218,10 @@
         };*/
         function musiccontrol() {
             if (document.getElementById("music-btn").src.includes('images/music-open.png')) {
-                document.getElementById("music-btn").src = 'images/music-close.png';
+                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png';
                 document.getElementById('backgroundMusic').pause();
             } else {
-                document.getElementById("music-btn").src = 'images/music-open.png';
+                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-open.png';
                 document.getElementById('backgroundMusic').play();
             }
         };
@@ -1238,15 +1238,15 @@
             var div = document.createElement("div");
             div.style.width = "56px";
             div.style.height = "56px";
-            div.style.backgroundImage = 'url("images/line-btn.png")';
+            div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/line-btn.png")';
             div.style.backgroundSize = 'cover';
             div.style.cursor = "pointer";
             div.id = "lineControl";
             div.onclick = function () {
-                if (div.style.backgroundImage == 'url("images/line-btn.png")') {
-                    div.style.backgroundImage = 'url("images/map-btn.png")';
+                if (div.style.backgroundImage.includes('images/line-btn.png')) {
+                    div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/map-btn.png")';
                 } else {
-                    div.style.backgroundImage = 'url("images/line-btn.png")';
+                    div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/line-btn.png")';
                     imgOverlay.setImage(CDN_URL+'images/map.jpg');
                 }
                 if (document.getElementById('lineSelect-container').style.display == 'flex') {
