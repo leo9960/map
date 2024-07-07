@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="landscape">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -8,32 +8,28 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <script type="text/javascript">
         var CDN_URL = "https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/";
-        if (window.orientation == 90 || window.orientation == -90) { // 横屏
-            document.querySelector("html").classList.remove('landscape');
-        } else { // 竖屏
-            if (window.innerWidth < window.innerHeight) {
-                document.querySelector("html").classList.add('landscape');
-            } else {
-                document.querySelector("html").classList.remove('landscape');
+        function isMobileBrowser() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        
+        /*if(isMobileBrowser()){
+            if(window.orientation == 90 || window.orientation == -90){
+                document.body.classList.remove('landscape')
+                map.enableDragging();
+            }else{
+                document.body.classList.add('landscape')
+                map.disableDragging();
             }
-        }
-        // 获取视口高度
-        function setViewportHeight() {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
-
-        // 初始化视口高度
-        setViewportHeight();
-        window.addEventListener('resize', setViewportHeight);
+        }else{
+            document.body.classList.remove('landscape')
+            map.enableDragging();
+        }*/
     </script>
     <!--<script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
 <script>
-  // VConsole 默认会挂载到 `window.VConsole` 上
   var vConsole = new window.VConsole();
 </script>-->
-    <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ymNFeWvGjzIRnGeXjXb91AGUseb2IROT"
-        type="text/javascript"></script>
+    <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ymNFeWvGjzIRnGeXjXb91AGUseb2IROT" type="text/javascript"></script>
     <script type="text/javascript" src="js/AreaRestriction.js"></script>
 
     <script src="//code.bdstatic.com/npm/mapvgl@1.0.0-beta.141/dist/mapvgl.min.js" type="text/javascript"></script>
@@ -47,6 +43,11 @@
             margin: 0;
             font-family: "微软雅黑";
         }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1e1e1e;
+            }
+        }
 
         .landscape {
             position: absolute;
@@ -54,9 +55,8 @@
             left: 50%;
             transform: translate(-50%, -50%) rotate(90deg);
             transform-origin: center center;
-            width: calc(var(--vh, 1vh) * 100);
+            width: calc(var(--vh, 1svh) * 100);
             height: 100vw;
-            overflow: hidden;
         }
 
         .blur {
@@ -69,32 +69,33 @@
             .logo-container{
                 position: absolute;
                 z-index: 99999;
-                top: calc(var(--vh, 1vh) * 3);
-                left: calc(var(--vh, 1vh) * 3);
-                width: calc(var(--vh, 1vh) * 14);
-                height: calc(var(--vh, 1vh) * 14);
+                top: calc(var(--vh, 1svh) * 3);
+                left: calc(var(--vh, 1svh) * 3);
+                width: calc(var(--vh, 1svh) * 14);
+                height: calc(var(--vh, 1svh) * 14);
+                overflow:hidden;
             }
             .music-container{
                 position: absolute;
                 z-index: 99999;
-                /*top: calc(var(--vh, 1vh) * 3);
-                right: calc(var(--vh, 1vh) * 3);
-                width: calc(var(--vh, 1vh) * 8);
-                height: calc(var(--vh, 1vh) * 8);*/
-                top: calc(var(--vh, 1vh) * 3);
-                right: calc(var(--vh, 1vh) * 1);
+                /*top: calc(var(--vh, 1svh) * 3);
+                right: calc(var(--vh, 1svh) * 3);
+                width: calc(var(--vh, 1svh) * 8);
+                height: calc(var(--vh, 1svh) * 8);*/
+                top: calc(var(--vh, 1svh) * 3);
+                right: calc(var(--vh, 1svh) * 1);
                 width: 56px;
                 height: 56px;
             }
             .loading-bg {
                 width: 100vw;
-                height: calc(var(--vh, 1vh) * 100);
+                height: calc(var(--vh, 1svh) * 100);
                 object-fit: cover;
                 object-position: center;
             }
             .ydy-bg {
                 width: 100vw;
-                height: calc(var(--vh, 1vh) * 100);
+                height: calc(var(--vh, 1svh) * 100);
                 object-fit: cover;
                 object-position: center;
             }
@@ -102,19 +103,19 @@
             /* 在这里定义横屏时的样式 */
             .loading-container {
                 width: 100vw;
-                height: calc(var(--vh, 1vh) * 100);
+                height: calc(var(--vh, 1svh) * 100);
                 background-size: cover;
                 background-position: center;
             }
             
             .enter-btn{
                 width: 30vw;
-                height: calc(var(--vh, 1vh) * 6);
+                height: calc(var(--vh, 1svh) * 6);
                 /*border-radius: 50vw;
                 border: 0.125em solid;*/
                 color: #083054;
                 position: absolute;
-                bottom: calc(var(--vh, 1vh) * 30);
+                bottom: calc(var(--vh, 1svh) * 30);
                 left: calc((100vw - 30vw) / 2);
                 font-size: 20px;
                 font-weight: bold;
@@ -128,18 +129,19 @@
             .ydy-container {
                 background: url('https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy.png');
                 width: 100vw;
-                height: calc(var(--vh, 1vh) * 100);
+                height: calc(var(--vh, 1svh) * 100);
                 background-size: cover;
                 background-position: center;
                 position: absolute;
                 z-index: 999;
                 background-color: rgba(0, 0, 0, 0.5);
+                overflow:hidden;
             }
 
             .zdy-container {
                 background: url('https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zdy.png');
                 width: 100vw;
-                height: calc(var(--vh, 1vh) * 100);
+                height: calc(var(--vh, 1svh) * 100);
                 background-size: cover;
                 background-position: center;
                 position: absolute;
@@ -149,33 +151,35 @@
 
             .loader-progress-bar {
                 width: 30vw;
-                height: calc(var(--vh, 1vh) * 6);
+                height: calc(var(--vh, 1svh) * 6);
                 border-radius: 50vw;
                 border: 0.125em solid;
                 color: #083054;
                 position: absolute;
-                bottom: calc(var(--vh, 1vh) * 30);
+                bottom: calc(var(--vh, 1svh) * 30);
                 left: calc((100vw - 30vw) / 2);
                 font-size: 20px;
             }
             .ydy-map-btn{
-                left: calc(var(--vh, 1vh) * 15);
+                left: calc(var(--vh, 1svh) * 15);
                 position: absolute;
-                bottom: calc(var(--vh, 1vh) * 3);
+                bottom: calc(var(--vh, 1svh) * 3);
                 cursor: pointer;
-                width: calc(var(--vh, 1vh) * 55);
+                width: calc(var(--vh, 1svh) * 55);
             }
             .ydy-line-btn{
-                right: calc(var(--vh, 1vh) * 15);
+                right: calc(var(--vh, 1svh) * 15);
                 position: absolute;
-                bottom: calc(var(--vh, 1vh) * 3);
+                bottom: calc(var(--vh, 1svh) * 3);
                 cursor: pointer;
-                width: calc(var(--vh, 1vh) * 55);
+                width: calc(var(--vh, 1svh) * 55);
             }
         }
 
         @media screen and (orientation: portrait) {
-
+            .anchorBR{
+                transform: translateZ(1000px);
+            }
             .logo-container{
                 position: absolute;
                 z-index: 99999;
@@ -183,6 +187,7 @@
                 left: 3vw;
                 width: 14vw;
                 height: 14vw;
+                transform: translateZ(1000px);
             }
             .music-container{
                 position: absolute;
@@ -195,38 +200,40 @@
                 right: 2.5vw;
                 width: 56px;
                 height: 56px;
+                transform: translateZ(1000px);
             }
             .loading-bg {
-                width: calc(var(--vh, 1vh) * 100);
+                width: calc(var(--vh, 1svh) * 100);
                 height: 100vw;
                 object-fit: cover;
                 object-position: center;
             }
             .ydy-bg {
                 position: absolute;
-                left: calc(var(--vh, 1vh) * 2);
-                width: calc(var(--vh, 1vh) * 96);
-                height: calc(var(--vh, 1vh) * 96 / 16 * 9);
+                left: calc(var(--vh, 1svh) * 1);
+                width: calc(var(--vh, 1svh) * 98);
+                height: calc(var(--vh, 1svh) * 98 / 16 * 9);
                 object-fit: cover;
                 object-position: center;
                 max-height: 98vw;
+                top: calc((100vw - var(--vh, 1svh)* 98 / 16* 9) / 2);
             }
 
             .loading-container {
-                width: calc(var(--vh, 1vh) * 100);
+                width: calc(var(--vh, 1svh) * 100);
                 height: 100vw;
                 background-size: cover;
                 background-position: center;
             }
             .enter-btn{
                 width: 70vw;
-                height: calc(var(--vh, 1vh) * 3);
+                height: calc(var(--vh, 1svh) * 3);
                 /*border-radius: 50vw;
                 border: 0.125em solid;*/
                 color: #083054;
                 position: absolute;
                 bottom: 28vw;
-                left: calc((var(--vh, 1vh) * 100 - 70vw) / 2);
+                left: calc((var(--vh, 1svh) * 100 - 70vw) / 2);
                 font-size: 18px;
                 font-weight: bold;
                 text-align: center;
@@ -237,50 +244,52 @@
             }
 
             .ydy-container {
-                width: calc(var(--vh, 1vh) * 100);
+                width: calc(var(--vh, 1svh) * 100);
                 height: 100vw;
                 background-size: cover;
                 background-position: center;
                 position: absolute;
                 z-index: 999;
                 background-color: rgba(0, 0, 0, 0.5);
+                transform: translateZ(1000px);
             }
 
             .zdy-container {
                 background: url('https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zdy.png');
-                width: calc(var(--vh, 1vh) * 100);
+                width: calc(var(--vh, 1svh) * 100);
                 height: 100vw;
                 background-size: cover;
                 background-position: center;
                 position: absolute;
                 z-index: 998;
                 background-color: rgba(0, 0, 0, 0.5);
+                transform: translateZ(1000px);
             }
 
             .loader-progress-bar {
                 width: 70vw;
-                height: calc(var(--vh, 1vh) * 3);
+                height: calc(var(--vh, 1svh) * 3);
                 border-radius: 50vw;
                 border: 0.125em solid;
                 color: #083054;
                 position: absolute;
                 bottom: 28vw;
-                left: calc((var(--vh, 1vh) * 100 - 70vw) / 2);
+                left: calc((var(--vh, 1svh) * 100 - 70vw) / 2);
                 font-size: 18px;
             }
             .ydy-map-btn{
-                left: calc(var(--vh, 1vh) * 15);
+                left: calc(var(--vh, 1svh) * 15);
                 position: absolute;
                 top: 80vw;
                 cursor: pointer;
-                width: 55vw;
+                width: calc(var(--vh, 1svh) * 31);
             }
             .ydy-line-btn{
-                right: calc(var(--vh, 1vh) * 15);
+                right: calc(var(--vh, 1svh) * 15);
                 position: absolute;
                 top: 80vw;
                 cursor: pointer;
-                width: 55vw;
+                width: calc(var(--vh, 1svh) * 31);
             }
         }
 
@@ -345,7 +354,31 @@
     </style>
 </head>
 
-<body>
+<body class="landscape">
+    
+    <script type="text/javascript">
+        // 获取视口高度
+        function setViewportHeight() {
+            let vh = window.innerHeight * 0.01;
+            //document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        // 初始化视口高度
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+        if(isMobileBrowser()){
+            if(window.orientation == 90 || window.orientation == -90){
+                document.body.classList.remove('landscape')
+                map.enableDragging();
+            }else{
+                document.body.classList.add('landscape')
+                map.disableDragging();
+            }
+        }else{
+            document.body.classList.remove('landscape')
+            map.enableDragging();
+        }
+    </script>
     <div class="logo-container" id="logo-container">
         <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/logo.png" style="width: 100%;height: 100%;">
     </div>
@@ -381,13 +414,14 @@
             /* 在这里定义竖屏时的样式 */
             .modal-content {
                 background-size: cover;
-                width: calc(var(--vh, 1vh) * 100);
+                width: calc(var(--vh, 1svh) * 100);
                 height: 100vw;
                 position: relative;
                 background-position: center;
-                /*left: calc((var(--vh, 1vh) * 100 - 170.78vw) / 2);*/
-                max-width: calc(var(--vh, 1vh) * 100);
-                max-height: calc(var(--vh, 1vh) * 56.25);
+                /*left: calc((var(--vh, 1svh) * 100 - 170.78vw) / 2);*/
+                max-width: calc(var(--vh, 1svh) * 100);
+                max-height: calc(var(--vh, 1svh) * 56.25);
+                transform: translateZ(1000px);
             }
 
             .mc-header {
@@ -419,7 +453,7 @@
 
             .lineSelect-container {
                 position: absolute;
-                width: calc(var(--vh, 1vh) * 41);
+                width: calc(var(--vh, 1svh) * 41);
                 height: 102vw;
                 background-color: rgba(0, 0, 0, 0.75);
                 top: -1vw;
@@ -428,18 +462,19 @@
                 flex-direction: column;
                 justify-content: center;
                 z-index: 999;
+                transform: translateZ(1000px);
             }
             .zhedie{
-                left: calc(var(--vh, 1vh) * -37);
+                left: calc(var(--vh, 1svh) * -37);
             }
             .zhankai{
-                left: calc(var(--vh, 1vh) * -1);
+                left: calc(var(--vh, 1svh) * -1);
             }
             .arrow-btn{    
                 position: absolute;
                 right: 0;
                 color: white;
-                width: calc(var(--vh, 1vh) * 4);
+                width: calc(var(--vh, 1svh) * 4);
                 text-align: center;
                 padding: 10vw 0;
                 font-size: 24px;
@@ -451,34 +486,43 @@
                 position: absolute;
                 top: 80vw;
                 cursor: pointer;
-                width: 55vw;
+                width: calc(var(--vh, 1svh) * 31);
             }
 
             .lineDesc-container {
                 position: absolute;
-                width: calc(var(--vh, 1vh) * 40);
+                width: calc(var(--vh, 1svh) * 45);
                 height: 20vw;
                 z-index: 999;
                 background-color: rgba(255,255,255,0.75);
                 bottom: 7vw;
-                left: calc(var(--vh, 1vh) * 45);
+                left: calc(var(--vh, 1svh) * 41);
                 padding: 15px;
                 border-radius: 15px;
                 border: 2px solid #99cceb;
                 font-size: 14px;
+                display: flex;
+                /*justify-content: center;
+                align-items: center;*/
+                transform: translateZ(1000px);
             }
             .close {
                 position: absolute;
-                top: calc(var(--vh, 1vh) * 5);
-                right: calc((var(--vh, 1vh) * 100 - 177.78vw) / 2 + var(--vh, 1vh) * 6);
+                top: calc((115vw - var(--vh, 1svh)* 98 / 16* 9) / 2);
+                /*right: calc((var(--vh, 1svh) * 100 - 177.78vw) / 2 + var(--vh, 1svh) * 6);*/
+                right: calc(var(--vh, 1svh) * 5);
                 cursor: pointer;
                 width: 5%;
             }
             .itemModalImg{
                 position: absolute;
-                width: calc(96vw / 9 * 16);
-                height: 96vw;
-                left: calc((var(--vh, 1vh) * 100 - 96vw / 9 * 16) / 2);
+                width: calc(var(--vh, 1svh) * 98);
+                height: calc(var(--vh, 1svh) * 98 / 16 * 9);
+                left: calc(var(--vh, 1svh) * 1);
+                object-fit: cover;
+                object-position: center;
+                max-height: 98vw;
+                top: max(calc((100vw - var(--vh, 1svh)* 98 / 16* 9) / 2),0);
             }
         }
 
@@ -488,17 +532,17 @@
             /* 在这里定义横屏时的样式 */
             .modal-content {
                 background-size: cover;
-                width: calc(var(--vh, 1vh) * 177);
-                height: calc(var(--vh, 1vh) * 100);
+                width: calc(var(--vh, 1svh) * 177);
+                height: calc(var(--vh, 1svh) * 100);
                 position: relative;
-                left: calc((100vw - var(--vh, 1vh) * 177) / 2);
+                left: calc((100vw - var(--vh, 1svh) * 177) / 2);
                 background-position: center;
             }
 
             .lineSelect-container {
                 position: absolute;
                 width: 40vw;
-                height: calc(var(--vh, 1vh) * 100);
+                height: calc(var(--vh, 1svh) * 100);
                 background-color: rgba(0, 0, 0, 0.75);
                 top: 0;
                 display: flex;
@@ -527,34 +571,37 @@
 
             .button {
                 position: absolute;
-                bottom: calc(var(--vh, 1vh) * 3);
+                bottom: calc(var(--vh, 1svh) * 3);
                 cursor: pointer;
-                width: calc(var(--vh, 1vh) * 55);
+                width: calc(var(--vh, 1svh) * 55);
             }
 
             .lineDesc-container {
                 position: absolute;
-                width: 40vw;
-                height: calc(var(--vh, 1vh) * 20);
+                width: 48vw;
+                height: calc(var(--vh, 1svh) * 20);
                 z-index: 999;
                 background-color: rgba(255,255,255,0.75);
-                bottom: calc(var(--vh, 1vh) * 7);
-                left: 45vw;
-                padding: 15px;
+                bottom: calc(var(--vh, 1svh) * 7);
+                left: 40.5vw;
+                padding:18px 8px;
                 border-radius: 15px;
                 border: 2px solid #99cceb;
                 font-size: 14px;
+                display: flex;
+                /*justify-content: center;
+                align-items: center;*/
             }
             .close {
                 position: absolute;
-                top: calc(var(--vh, 1vh) * 11.5);
-                right: calc(var(--vh, 1vh) * 6);
+                top: calc(var(--vh, 1svh) * 11.5);
+                right: calc(var(--vh, 1svh) * 6);
                 cursor: pointer;
                 width: 5%;
             }
             .itemModalImg{
-                width: calc(var(--vh, 1vh) * 177.78);
-                height: calc(var(--vh, 1vh) * 100);
+                width: calc(var(--vh, 1svh) * 177.78);
+                height: calc(var(--vh, 1svh) * 100);
             }
         }
 
@@ -575,13 +622,20 @@
             color: #aaa;
             font-size: 14px;
             line-height: 28px;
-            padding: 0 calc(var(--vh, 1vh) * 2);
+            padding: 0 calc(var(--vh, 1svh) * 3);
+        }
+        .lineheader {
+            text-align: left;
+            color: #aaa;
+            font-size: 18px;
+            line-height: 36px;
+            padding: 0 calc(var(--vh, 1svh) * 5);
         }
         .dhyy-btn{
-            left: calc(var(--vh, 1vh) * 15);
+            left: calc(var(--vh, 1svh) * 15);
         }
         .yjdh-btn{
-            right: calc(var(--vh, 1vh) * 15);
+            right: calc(var(--vh, 1svh) * 15);
         }
     </style>
     <div class="modal" id="itemModal">
@@ -611,7 +665,7 @@
         </div>
     </div>
     <div id="lineSelect-container" class="lineSelect-container zhankai" style="display: none;">
-        <div class="arrow-btn" id="arrow-btn" onclick="zhankaizhedie()"><img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/close.png" style="width: 100%;height: 100%;"/></div>
+        <div class="arrow-btn" id="arrow-btn" onclick="zhankaizhedie()"><img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/close.png" style="width: 70%;"/></div>
     </div>
     <div id="lineDesc-container" class="lineDesc-container" style="display: none;"></div>
     <script type="text/javascript">
@@ -818,21 +872,17 @@
             }
         }
 
-        function isMobileBrowser() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        }
-
         function checkOrientation() {
             if(isMobileBrowser()){
                 if(window.orientation == 90 || window.orientation == -90){
-                    document.querySelector("html").classList.remove('landscape')
+                    document.body.classList.remove('landscape')
                     map.enableDragging();
                 }else{
-                    document.querySelector("html").classList.add('landscape')
+                    document.body.classList.add('landscape')
                     map.disableDragging();
                 }
             }else{
-                document.querySelector("html").classList.remove('landscape')
+                document.body.classList.remove('landscape')
                 map.enableDragging();
             }
             var mapCanvas = document.getElementById('platform');
@@ -955,7 +1005,7 @@
                     }
                     str = str.slice(0,-2);
                     document.getElementById('lineDesc-container').innerText = str;
-                    document.getElementById('lineDesc-container').style.display = 'block';
+                    document.getElementById('lineDesc-container').style.display = 'flex';
                 }
                 var containerDiv = document.getElementById('lineSelect-container');
                 containerDiv.appendChild(newDiv);
