@@ -198,8 +198,8 @@
                 height: 8vw;*/
                 top: 3vw;
                 right: 2.5vw;
-                width: 56px;
-                height: 56px;
+                width: 46px;
+                height: 46px;
                 transform: translateZ(1000px);
             }
             .loading-bg {
@@ -280,14 +280,14 @@
             .ydy-map-btn{
                 left: calc(var(--vh, 1svh) * 15);
                 position: absolute;
-                top: 80vw;
+                top: 77vw;
                 cursor: pointer;
                 width: calc(var(--vh, 1svh) * 31);
             }
             .ydy-line-btn{
                 right: calc(var(--vh, 1svh) * 15);
                 position: absolute;
-                top: 80vw;
+                top: 77vw;
                 cursor: pointer;
                 width: calc(var(--vh, 1svh) * 31);
             }
@@ -380,7 +380,7 @@
         }
     </script>
     <div class="logo-container" id="logo-container">
-        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/logo.png" style="width: 100%;height: 100%;">
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/logolvse.png" style="width: 100%;height: 100%;">
     </div>
     <div class="music-container" id="music-container">
         <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png" id="music-btn" style="width: 100%;height: 100%;" onclick="musiccontrol(this);">
@@ -484,7 +484,7 @@
 
             .button {
                 position: absolute;
-                top: 80vw;
+                top: 82vw;
                 cursor: pointer;
                 width: calc(var(--vh, 1svh) * 31);
             }
@@ -642,7 +642,7 @@
         <div class="modal-content">
             <img src="" id="itemModalImg" class="itemModalImg">
             <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/close.png" alt="Close" class="close"
-                onclick="document.getElementById('itemModal').style.display = 'none';document.getElementById('music-container').style.display = 'block';noblurmap();noblurdiv('lineDesc-container');noblurdiv('lineSelect-container');">
+                onclick="document.getElementById('itemModal').style.display = 'none';document.getElementById('music-container').style.display = 'block';noblurmap();noblurdiv('lineDesc-container');noblurdiv('lineSelect-container');document.getElementById('logo-container').style.display = 'block';">
             <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/dhyy.png" alt="Button 1" class="button dhyy-btn"
                 onclick="callPhoneNumber(document.getElementById('itemModal').dataset.phone);">
             <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/yjdh.png" alt="Button 2" class="button yjdh-btn" onclick="yjdh()">
@@ -1109,6 +1109,7 @@
                 blurmap();
                 blurdiv('lineDesc-container');
                 blurdiv('lineSelect-container');
+                document.getElementById('logo-container').style.display = 'none';
                 document.getElementById('music-container').style.display = 'none';
                 document.getElementById('itemModal').style.display = 'block';
                 document.getElementById('itemModalImg').src = CDN_URL+'images/' + infospot.id + '.png';
@@ -1205,8 +1206,8 @@
 
         ZoomInControl.prototype.initialize = function (map) {
             var div = document.createElement("div");
-            div.style.width = "48px";
-            div.style.height = "48px";
+            div.style.width = "42px";
+            div.style.height = "42px";
             div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zoom-in.png")'; // 放大图标
             div.style.backgroundSize = 'cover';
             div.style.cursor = "pointer";
@@ -1227,8 +1228,8 @@
 
         ZoomOutControl.prototype.initialize = function (map) {
             var div = document.createElement("div");
-            div.style.width = "48px";
-            div.style.height = "48px";
+            div.style.width = "42px";
+            div.style.height = "42px";
             div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/zoom-out.png")'; // 缩小图标
             div.style.backgroundSize = 'cover';
             div.style.cursor = "pointer";
@@ -1287,8 +1288,8 @@
 
         lineControl.prototype.initialize = function (map) {
             var div = document.createElement("div");
-            div.style.width = "56px";
-            div.style.height = "56px";
+            div.style.width = "46px";
+            div.style.height = "46px";
             div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/line-btn.png")';
             div.style.backgroundSize = 'cover';
             div.style.cursor = "pointer";
