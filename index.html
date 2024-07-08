@@ -492,7 +492,7 @@
             .lineDesc-container {
                 position: absolute;
                 width: calc(var(--vh, 1svh) * 45);
-                height: 20vw;
+                /*height: 20vw;*/
                 z-index: 999;
                 background-color: rgba(255,255,255,0.75);
                 bottom: 7vw;
@@ -579,7 +579,7 @@
             .lineDesc-container {
                 position: absolute;
                 width: 48vw;
-                height: calc(var(--vh, 1svh) * 20);
+                /*height: calc(var(--vh, 1svh) * 20);*/
                 z-index: 999;
                 background-color: rgba(255,255,255,0.75);
                 bottom: calc(var(--vh, 1svh) * 7);
@@ -998,7 +998,7 @@
                             elements[i].style.color = '#aaa';
                         }
                     }
-                    map.flyTo(matchedRegions[0].lnglat, 12);
+                    map.flyTo(matchedRegions[0].lnglat, 11);
                     var str = "";
                     for (var i in matchedRegions) {
                         str += "【" + matchedRegions[i].name + "】 - ";
