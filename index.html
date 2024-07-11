@@ -11,27 +11,7 @@
         function isMobileBrowser() {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
-        /*alert(window.outerHeight);
-        alert(window.innerHeight);
-        alert(document.body.clientHeight);*/
-        
-        /*if(isMobileBrowser()){
-            if(window.orientation == 90 || window.orientation == -90){
-                document.body.classList.remove('landscape')
-                map.enableDragging();
-            }else{
-                document.body.classList.add('landscape')
-                map.disableDragging();
-            }
-        }else{
-            document.body.classList.remove('landscape')
-            map.enableDragging();
-        }*/
     </script>
-    <!--<script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
-<script>
-  var vConsole = new window.VConsole();
-</script>-->
     <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ymNFeWvGjzIRnGeXjXb91AGUseb2IROT" type="text/javascript"></script>
     <script type="text/javascript" src="js/AreaRestriction.js"></script>
 
@@ -45,6 +25,9 @@
             height: 100%;
             margin: 0;
             font-family: "微软雅黑";
+        }
+        div {
+            outline: none;
         }
         @media (prefers-color-scheme: dark) {
             body {
@@ -65,8 +48,6 @@
         .blur {
             filter: blur(5px);
         }
-
-        /* 横屏样式 */
         @media screen and (orientation: landscape) {
 
             .logo-container{
@@ -81,10 +62,6 @@
             .music-container{
                 position: absolute;
                 z-index: 99999;
-                /*top: calc(var(--vh, 1svh) * 3);
-                right: calc(var(--vh, 1svh) * 3);
-                width: calc(var(--vh, 1svh) * 8);
-                height: calc(var(--vh, 1svh) * 8);*/
                 top: calc(var(--vh, 1svh) * 3);
                 right: calc(var(--vh, 1svh) * 1);
                 width: 46px;
@@ -102,8 +79,6 @@
                 object-fit: contain;
                 object-position: center;
             }
-
-            /* 在这里定义横屏时的样式 */
             .loading-container {
                 width: 100vw;
                 height: calc(var(--vh, 1svh) * 100);
@@ -114,8 +89,6 @@
             .enter-btn{
                 width: 30vw;
                 height: calc(var(--vh, 1svh) * 6);
-                /*border-radius: 50vw;
-                border: 0.125em solid;*/
                 color: #083054;
                 position: absolute;
                 bottom: calc(var(--vh, 1svh) * 26);
@@ -130,7 +103,6 @@
             }
 
             .ydy-container {
-                /*background: url('https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy.png');*/
                 width: 100vw;
                 height: calc(var(--vh, 1svh) * 100);
                 background-size: cover;
@@ -195,10 +167,6 @@
             .music-container{
                 position: absolute;
                 z-index: 99999;
-                /*top: 3vw;
-                right: 3vw;
-                width: 8vw;
-                height: 8vw;*/
                 top: 3vw;
                 right: 2.5vw;
                 width: 46px;
@@ -230,8 +198,6 @@
             .enter-btn{
                 width: 70vw;
                 height: calc(var(--vh, 1svh) * 3);
-                /*border-radius: 50vw;
-                border: 0.125em solid;*/
                 color: #083054;
                 position: absolute;
                 bottom: 28vw;
@@ -410,27 +376,13 @@
                 onload="imgloaded();">
         </div>
     </div>
-
-    <!--<div class="ydy-container" id="ydy-container" style="visibility: hidden;">
-        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy.png" class="ydy-bg">
-        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy-map.png" class="ydy-map-btn" 
-            onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';"
-            onload="imgloaded();">
-        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy-line.png" class="ydy-line-btn" 
-            onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';use_lineselect=true;"
-            onload="imgloaded();">
-    </div>-->
     <div class="zdy-container" id="zdy-container" style="visibility: hidden;"
         onclick="document.getElementById('zdy-container').style.display='none';document.getElementById('logo-container').style.display = 'block';noblurmap();start();if(use_lineselect){document.getElementById('lineControl').click();}">
     </div>
 
     <div id="container" class="blur" style="visibility: hidden;"></div>
-    <!--<canvas id="overlayCanvas" style="position:absolute; top:0; left:0; width:100%;height:100%;z-index: 999;"></canvas>-->
     <style>
-        /* 竖屏样式 */
         @media screen and (orientation: portrait) {
-
-            /* 在这里定义竖屏时的样式 */
             .ydy-container {
                 position: fixed;
                 top: 0;
@@ -531,7 +483,6 @@
             .lineDesc-container {
                 position: absolute;
                 width: calc(var(--vh, 1svh) * 45);
-                /*height: 20vw;*/
                 z-index: 999;
                 background-color: rgba(255,255,255,0.75);
                 bottom: 7vw;
@@ -541,8 +492,6 @@
                 border: 2px solid #99cceb;
                 font-size: 14px;
                 display: flex;
-                /*justify-content: center;
-                align-items: center;*/
                 transform: translateZ(1000px);
             }
             .close {
@@ -567,10 +516,7 @@
             }
         }
 
-        /* 横屏样式 */
         @media screen and (orientation: landscape) {
-
-            /* 在这里定义横屏时的样式 */
             .modal-content {
                 background-size: cover;
                 width: 100vw;
@@ -619,7 +565,6 @@
             .lineDesc-container {
                 position: absolute;
                 width: 48vw;
-                /*height: calc(var(--vh, 1svh) * 20);*/
                 z-index: 999;
                 background-color: rgba(255,255,255,0.75);
                 bottom: calc(var(--vh, 1svh) * 7);
@@ -629,8 +574,6 @@
                 border: 2px solid #99cceb;
                 font-size: 14px;
                 display: flex;
-                /*justify-content: center;
-                align-items: center;*/
             }
             .close {
                 position: fixed;
@@ -666,6 +609,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            transform: translateZ(1000px);
         }
         .lineitem {
             text-align: left;
@@ -996,18 +940,7 @@
         window.addEventListener("DOMContentLoaded", function () {
             preload();
         });
-        // 在页面加载和屏幕旋转时检测屏幕方向
-        //window.addEventListener("load", checkOrientation);
         window.addEventListener("orientationchange", checkOrientation);
-
-        // 添加区域掩膜
-        /*addMapMask('chq.json');
-        addMapMask('hjq.json');
-        addMapMask('jpq.json');
-        addMapMask('lhq.json');
-        addMapMask('cyq.json');
-        addMapMask('cnq.json');
-        addMapMask('nax.json');*/
 
         var geoData = null;
         var lineData = null;
@@ -1090,11 +1023,9 @@
             }
             const context = this.context;
             context.save();
-            // 2倍图
             context.scale(2, 2);
             context.clearRect(0, 0, this.width, this.height);
 
-            // 扩散圆
             context.beginPath();
             context.arc(
                 this.width / 2,
@@ -1109,7 +1040,6 @@
 
             context.restore();
 
-            // 更新图像的像素数据
             this.data = context.getImageData(
                 0,
                 0,
@@ -1135,25 +1065,6 @@
                 icon: custom
             });
             map.addOverlay(marker);
-            //markerstart();
-            // 开启拖拽功能
-            //marker.enableDragging();
-
-            // 监听标记拖动结束事件
-            /*marker.addEventListener('dragend', function(e) {
-                var newPosition = e.point;
-                var lnglat=map.mercatorToLnglat(newPosition.lng , newPosition.lat);
-
-                // 复制移动后的坐标
-                var copyText = document.createElement('input');
-                copyText.value = '"lng": "'+lnglat[0] + '",\r\n"lat": "' + lnglat[1]+'",';
-                document.body.appendChild(copyText);
-                copyText.select();
-                document.execCommand('copy');
-                document.body.removeChild(copyText);
-
-                alert('已复制新位置坐标！'+ lnglat[0] + ', ' + lnglat[1]);
-            });*/
             marker.addEventListener("click", function () {
                 blurmap();
                 blurdiv('lineDesc-container');
@@ -1170,11 +1081,6 @@
                 document.getElementById('itemModal').dataset.phone = infospot.phone;
                 document.getElementById('itemModal').dataset.iM_name = infospot.name;
             });
-            /*var label = new BMapGL.Label(infospot.name, {
-                position: infospot.lnglat,
-                offset: new BMapGL.Size(-30, -20)
-            })  
-            map.addOverlay(label); */
         }
 
         function addMapMask(name) {
@@ -1201,48 +1107,9 @@
                             sideFillOpacity: 0.9
                         });
                         map.addOverlay(mapmask);
-                        var border = new BMapGL.Polyline(ptArr, {
-                            strokeColor: '#4ca7a2',
-                            strokeWeight: 3,
-                            strokeOpacity: 1
-                        });
-                        //map.addOverlay(border);
                     }
                 })
                 .catch(error => console.error('Error:', error));
-            /*var bdary = new BMapGL.Boundary();
-            bdary.get(name, function (rs) {
-                // 绘制行政区
-                console.log(name);
-                console.log(JSON.stringify(rs.boundaries));
-                for (var i = 0; i < rs.boundaries.length; i++) {
-                    var path = [];
-                    var xyArr = rs.boundaries[i].split(';');
-                    var ptArr = [];
-                    for (var j = 0; j < xyArr.length; j++) {
-                        var tmp = xyArr[j].split(',');
-                        var pt = new BMapGL.Point(tmp[0], tmp[1]);
-                        ptArr.push(pt);
-                    }
-                    var mapmask = new BMapGL.MapMask(ptArr, {
-                        isBuildingMask: true,
-                        isPoiMask: true,
-                        isMapMask: true,
-                        showRegion: 'inside',
-                        topFillColor: '#5679ea',
-                        topFillOpacity: 0.5,
-                        sideFillColor: '#5679ea',
-                        sideFillOpacity: 0.9
-                    });
-                    map.addOverlay(mapmask);
-                    var border = new BMapGL.Polyline(ptArr, {
-                        strokeColor: '#4ca7a2',
-                        strokeWeight: 3,
-                        strokeOpacity: 1
-                    });
-                    map.addOverlay(border);
-                }
-            });*/
         }
 
         // 自定义放大控件
@@ -1290,33 +1157,7 @@
         };
 
 
-        // 自定义音乐控件
-        /*function musicControl() {
-            this.defaultAnchor = BMAP_ANCHOR_TOP_RIGHT;
-            this.defaultOffset = new BMapGL.Size(10, 10);
-        }
-
-        musicControl.prototype = new BMapGL.Control();
-
-        musicControl.prototype.initialize = function (map) {
-            var div = document.createElement("div");
-            div.style.width = "48px";
-            div.style.height = "48px";
-            div.style.backgroundImage = 'url("images/music-open.png")';
-            div.style.backgroundSize = 'cover';
-            div.style.cursor = "pointer";
-            div.onclick = function () {
-                if (div.style.backgroundImage == 'url("images/music-open.png")') {
-                    div.style.backgroundImage = 'url("images/music-close.png")';
-                    document.getElementById('backgroundMusic').pause();
-                } else {
-                    div.style.backgroundImage = 'url("images/music-open.png")';
-                    document.getElementById('backgroundMusic').play();
-                }
-            };
-            map.getContainer().appendChild(div);
-            return div;
-        };*/
+       
         function musiccontrol() {
             if (document.getElementById("music-btn").src.includes('images/music-open.png')) {
                 document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png';
@@ -1327,7 +1168,6 @@
             }
         };
 
-        // 自定义线路控件
         function lineControl() {
             this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
             this.defaultOffset = new BMapGL.Size(10, 180);
