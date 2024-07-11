@@ -716,10 +716,14 @@
         var use_lineselect = false;
         var map;
         var mapview,lineLayer;
+        var minZoom = 11;
+        if(window.innerWidth>=1000){
+            minZoom = 12;
+        }
         fetch('js/custom_map_config.json').then(response => response.json())
             .then(data => {
                 map = new BMapGL.Map("container", {
-                    minZoom: 11,
+                    minZoom: minZoom,
                     maxZoom: 13,
                     fixCenterWhenPinch: false,
                     style: {
@@ -743,7 +747,7 @@
                             .catch(error => console.error('Error:', error));
                     })
                     .catch(error => console.error('Error:', error));
-                map.centerAndZoom(new BMapGL.Point(116.707825, 23.359542), 11);
+                map.centerAndZoom(new BMapGL.Point(116.707825, 23.359542), minZoom);
                 //map.disablePinchToZoom();
                 map.enableScrollWheelZoom();
                 map.addEventListener('dragging', function () {
@@ -1043,7 +1047,7 @@
                             elements[i].style.color = '#aaa';
                         }
                     }
-                    map.flyTo(matchedRegions[0].lnglat, 11);
+                    map.flyTo(matchedRegions[0].lnglat, minZoom);
                     var str = "";
                     for (var i in matchedRegions) {
                         str += "【" + matchedRegions[i].name + "】 - ";
