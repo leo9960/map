@@ -20,6 +20,15 @@
                 document.getElementById('enter-btn').style.display = 'flex';
             }
         }
+
+        function musicbtn() {
+            const audio = document.getElementById('backgroundMusic');
+            if (!audio.paused) {
+                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-open.png';
+            } else {
+                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png';
+            }
+        }
     </script>
     <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ymNFeWvGjzIRnGeXjXb91AGUseb2IROT" type="text/javascript"></script>
     <script type="text/javascript" src="js/AreaRestriction.js"></script>
@@ -1156,15 +1165,6 @@
             };
             map.getContainer().appendChild(div);
             return div;
-        };
-
-        function musicbtn() {
-            const audio = document.getElementById('backgroundMusic');
-            if (!audio.paused) {
-                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-open.png';
-            } else {
-                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png';
-            }
         };
        
         function musiccontrol() {
