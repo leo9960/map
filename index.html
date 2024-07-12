@@ -11,6 +11,15 @@
         function isMobileBrowser() {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
+        var imgcount = 0;
+        function imgloaded() {
+            imgcount++;
+            if (imgcount >= 35) {
+                document.getElementById('container').style.visibility = 'visible';
+                document.getElementById('loader-progress-bar').style.display = 'none';
+                document.getElementById('enter-btn').style.display = 'flex';
+            }
+        }
     </script>
     <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ymNFeWvGjzIRnGeXjXb91AGUseb2IROT" type="text/javascript"></script>
     <script type="text/javascript" src="js/AreaRestriction.js"></script>
@@ -357,7 +366,7 @@
     <div class="music-container" id="music-container">
         <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png" id="music-btn" style="width: 100%;height: 100%;" onclick="musiccontrol(this);">
     </div>
-    <audio id="backgroundMusic" src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/mp3/bgm1.mp3" loop autoplay></audio>
+    <audio id="backgroundMusic" src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/mp3/bgm1.mp3" loop autoplay oncanplay="musicbtn();"></audio>
     <div class="loading-container" id="loading-container">
         <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/loading-bg2.jpg" class="loading-bg">
         <div class="loader-progress-bar" id="loader-progress-bar"></div>
@@ -668,7 +677,7 @@
             .then(data => {
                 map = new BMapGL.Map("container", {
                     minZoom: minZoom,
-                    maxZoom: 13,
+                    maxZoom: 15,
                     fixCenterWhenPinch: false,
                     style: {
                         styleJson: data,
@@ -727,21 +736,21 @@
                 mapview = new mapvgl.View({
                     map: map
                 });
-                lineLayer = new mapvgl.LineRainbowLayer({
-                    dashArray:[20, 10],
+                lineLayer = new mapvgl.LineLayer({
+                    dashArray:[30, 20],
                     style: 'road', // road, arrow, normal
-                    width: 5,
+                    width: 7.5,
                     lineCap: 'round',
                     lineJoin: 'round',
-                    color: ["#ff3636EE"],
+                    color: "#ff0000FF",
                     animation:true,
                     interval:0.5,
-                    trailLength:0.9
+                    trailLength:2,
+                    duration:1
                 });
                 mapview.addLayer(lineLayer);
             })
             .catch(error => console.error('Error:', error));
-        var imgcount = 0;
         var imgOverlay;
         var imgOverlayCache = {};
 
@@ -793,14 +802,6 @@
             e.src = url
         }
 
-        function imgloaded() {
-            imgcount++;
-            if (imgcount >= 35) {
-                document.getElementById('container').style.visibility = 'visible';
-                document.getElementById('loader-progress-bar').style.display = 'none';
-                document.getElementById('enter-btn').style.display = 'flex';
-            }
-        }
         function getfilename(url){
             if (url.includes('/')) {
                 var lastPart = url.split('/').pop();
@@ -1156,16 +1157,25 @@
             return div;
         };
 
-
+        function musicbtn() {
+            const audio = document.getElementById('backgroundMusic');
+            if (!audio.paused) {
+                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-open.png';
+            } else {
+                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png';
+            }
+        };
        
         function musiccontrol() {
-            if (document.getElementById("music-btn").src.includes('images/music-open.png')) {
-                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png';
+            const audio = document.getElementById('backgroundMusic');
+            if (!audio.paused) {
+                console.log('音频正在播放');
                 document.getElementById('backgroundMusic').pause();
             } else {
-                document.getElementById("music-btn").src = 'https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-open.png';
+                console.log('音频已暂停');
                 document.getElementById('backgroundMusic').play();
             }
+            musicbtn();
         };
 
         function lineControl() {
