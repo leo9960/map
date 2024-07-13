@@ -36,7 +36,7 @@
     "featureType": "road",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -71,35 +71,35 @@
     "featureType": "continent",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "village",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "town",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "district",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "districtlabel",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
