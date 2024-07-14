@@ -22,7 +22,7 @@
     "featureType": "building",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#b5ce94ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -106,21 +106,21 @@
     "featureType": "districtlabel",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "poilabel",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#e8fff7ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "poilabel",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -133,7 +133,7 @@
     "featureType": "scenicspotslabel",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#e8fff7ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -146,7 +146,7 @@
     "featureType": "transportationlabel",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#e8fff7ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -159,7 +159,7 @@
     "featureType": "airportlabel",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -172,35 +172,35 @@
     "featureType": "green",
     "elementType": "geometry",
     "stylers": {
-        "color": "#7da688ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "district",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "city",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "country",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "continent",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -297,7 +297,7 @@
     "featureType": "road",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 10
     }
@@ -305,7 +305,7 @@
     "featureType": "road",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "weight": 0,
         "visibility": "on"
     }
@@ -313,70 +313,70 @@
     "featureType": "highway",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "nationalway",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "provincialway",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "cityhighway",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "arterial",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "tertiaryway",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "fourlevelway",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "local",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "scenicspotslabel",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "subway",
     "elementType": "labels.text.stroke",
     "stylers": {
-        "color": "#e5fff6ff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
@@ -420,14 +420,14 @@
     "featureType": "highway",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "highway",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -435,21 +435,21 @@
     "featureType": "highway",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "nationalway",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "nationalway",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -457,56 +457,56 @@
     "featureType": "nationalway",
     "elementType": "labels.text.fill",
     "stylers": {
-        "color": "#50862dff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "provincialway",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "cityhighway",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "arterial",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "tertiaryway",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "fourlevelway",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "local",
     "elementType": "geometry.fill",
     "stylers": {
-        "color": "#76ad8fff",
+        "color": "#cfecbcff",
         "visibility": "on"
     }
 }, {
     "featureType": "provincialway",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -514,7 +514,7 @@
     "featureType": "cityhighway",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -522,7 +522,7 @@
     "featureType": "arterial",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -530,7 +530,7 @@
     "featureType": "tertiaryway",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -538,7 +538,7 @@
     "featureType": "fourlevelway",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -546,7 +546,7 @@
     "featureType": "local",
     "elementType": "geometry.stroke",
     "stylers": {
-        "color": "#588a67ff",
+        "color": "#cfecbcff",
         "visibility": "on",
         "weight": 1.5
     }
@@ -950,6 +950,12 @@
 }, {
     "featureType": "water",
     "elementType": "labels",
+    "stylers": {
+        "visibility": "off"
+    }
+}, {
+    "featureType": "WATEROTHER",
+    "elementType": "geometry",
     "stylers": {
         "visibility": "off"
     }
