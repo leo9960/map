@@ -679,9 +679,10 @@
         var use_lineselect = false;
         var map;
         var mapview,lineLayer;
+        var bgoverlay
         var minZoom = 11;
         if(window.innerWidth>=1000){
-            minZoom = 12;
+            minZoom = 9;
         }
         fetch('js/custom_map_config.json').then(response => response.json())
             .then(data => {
@@ -735,6 +736,40 @@
                 //map.addControl(new musicControl());
                 map.addControl(new lineControl());
                 updateimgOverlay(CDN_URL+'images/map.jpg');
+                
+                /*bgoverlay = new BMapGL.GroundOverlay(new BMapGL.Bounds(new BMapGL.Point(115.37417632980565,22.145114112544988), new BMapGL.Point(117.614641801019,24.43470451417812)), {
+                    type: 'image',
+                    url: 'images/background.jpg',
+                    opacity: 1.0
+                });
+                //map.addOverlay(bgoverlay);
+                
+                // 创建两个可拖拽的标记
+                var marker1 = new BMapGL.Marker(new BMapGL.Point(115.37417632980565,22.145114112544988), { enableDragging: true });
+                var marker2 = new BMapGL.Marker(new BMapGL.Point(117.614641801019,24.43470451417812), { enableDragging: true });
+
+                // 将标记添加到地图上
+                map.addOverlay(marker1);
+                map.addOverlay(marker2);
+                // 监听两个标记的拖拽事件
+                marker1.addEventListener("dragend", function () {
+                    updateOverlay();
+                });
+
+                marker2.addEventListener("dragend", function () {
+                    updateOverlay();
+                });
+
+                // 更新覆盖物位置的函数
+                function updateOverlay() {
+                    var point1 = marker1.getPosition();
+                    var point2 = marker2.getPosition();
+
+                    var sw = new BMapGL.Point(Math.min(point1.lng, point2.lng), Math.min(point1.lat, point2.lat));
+                    var ne = new BMapGL.Point(Math.max(point1.lng, point2.lng), Math.max(point1.lat, point2.lat));
+                    console.log(sw, ne);
+                    bgoverlay.setBounds(new BMapGL.Bounds(sw, ne));
+                }*/
                 checkOrientation();
                 document.getElementsByClassName('anchorBL')[0].style.visibility = 'hidden';
                 document.getElementsByClassName('anchorBL')[0].style.opacity = '0';
@@ -821,6 +856,11 @@
             return lastPart
         }
         function preload(){
+            imageLoad('images/background.jpg', function (e, isSuccess) {
+                imgOverlayCache[getfilename(e.url)] = e;
+                imgloaded();
+                return true;
+            });
             imageLoad(CDN_URL+'images/map.jpg', function (e, isSuccess) {
                 imgOverlayCache[getfilename(e.url)] = e;
                 imgloaded();
@@ -1199,7 +1239,8 @@
                     div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/map-btn.png")';
                 } else {
                     div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/line-btn.png")';
-                    imgOverlay.setImage(CDN_URL+'images/map.jpg');
+                    updateimgOverlay(CDN_URL+'images/map.jpg');
+                    //imgOverlay.setImage(CDN_URL+'images/map.jpg');
                 }
                 if (document.getElementById('lineSelect-container').style.display == 'flex') {
                     var elements = document.getElementsByClassName('lineitem');
