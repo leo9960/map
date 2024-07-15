@@ -1078,7 +1078,7 @@
             });
         }
 
-        var iconsize = 100;
+        var iconsize = 60;
 
         function CustomSymbol(_size, _anchor) {
             BMapGL.Symbol.call(this, _size, _anchor);
@@ -1101,9 +1101,9 @@
             const t = (performance.now() % duration) / duration;
 
             // 可以通过修改 0.3 0.7
-            var outerRadius = (this.width / 2) * (0.1 * t + 0.1);
+            var outerRadius = (this.width / 1) * (0.1 * t + 0.1);
             if (t > 0.5) {
-                outerRadius = (this.width / 2) * (0.1 * (1 - t) + 0.1);
+                outerRadius = (this.width / 1) * (0.1 * (1 - t) + 0.1);
             }
             const context = this.context;
             context.save();
