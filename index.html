@@ -369,29 +369,30 @@
             //map.enableDragging();
         }
         var firstmute=false;
+        var firstenter=true;
     </script>
     <div class="logo-container" id="logo-container">
-        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/logochengse.png" style="width: 100%;height: 100%;">
+        <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/logochengse.png" style="width: 100%;height: 100%;" onclick="document.getElementById('ydy-container').style.display='block';document.getElementById('logo-container').style.display = 'none';if(use_lineselect){document.getElementById('lineControl').click();}">
     </div>
-    <div class="music-container" id="music-container">
+    <div class="music-container" id="music-container" style="display: none;">
         <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/music-close.png" id="music-btn" style="width: 100%;height: 100%;" onclick="firstmute=true;musiccontrol(this);">
     </div>
     <audio id="backgroundMusic" src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/mp3/bgm1.mp3" loop autoplay onplay="musicbtn();"></audio>
     <div class="loading-container" id="loading-container">
         <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/loading-bg2.jpg" class="loading-bg">
         <div class="loader-progress-bar" id="loader-progress-bar"></div>
-        <div class="enter-btn" id="enter-btn" style="display: none;" onclick="if(!firstmute){document.getElementById('backgroundMusic').play();}document.getElementById('loading-container').style.display = 'none';document.getElementById('logo-container').style.display = 'none';document.getElementById('ydy-container').style.visibility='visible';">点此进入</div>
+        <div class="enter-btn" id="enter-btn" style="display: none;" onclick="/*if(!firstmute){document.getElementById('backgroundMusic').play();}*/document.getElementById('loading-container').style.display = 'none';document.getElementById('music-container').style.display = 'block';document.getElementById('logo-container').style.display = 'none';document.getElementById('ydy-container').style.display='block';map.removeOverlay(bgOverlay);map.removeOverlay(imgOverlay);map.addOverlay(bgOverlay);setTimeout(function(){map.addOverlay(imgOverlay);},50)">点此进入</div>
     </div>
     <div style="position: absolute;z-index: 0;display: none;" id="loadingImgCache"></div>
 
-    <div class="ydy-container" id="ydy-container" style="visibility: hidden;">
+    <div class="ydy-container" id="ydy-container" style="display: none;">
         <div class="ydy-container-content">
             <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy.png" class="ydy-bg">
             <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy-map.png" class="ydy-map-btn" 
-                onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';"
+                onclick="document.getElementById('ydy-container').style.display='none';if(firstenter){document.getElementById('zdy-container').style.visibility='visible';firstenter=false;}else{document.getElementById('logo-container').style.display = 'block';noblurmap();start();}"
                 onload="imgloaded();">
             <img src="https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/ydy-line.png" class="ydy-line-btn" 
-                onclick="document.getElementById('ydy-container').style.display='none';document.getElementById('zdy-container').style.visibility='visible';use_lineselect=true;"
+                onclick="document.getElementById('ydy-container').style.display='none';if(firstenter){document.getElementById('zdy-container').style.visibility='visible';use_lineselect=true;}else{document.getElementById('logo-container').style.display = 'block';noblurmap();start();document.getElementById('lineControl').click();}"
                 onload="imgloaded();">
         </div>
     </div>
@@ -679,7 +680,44 @@
         var use_lineselect = false;
         var map;
         var mapview,lineLayer;
-        var bgoverlay
+        var bgpSW=new BMapGL.Point(115.4676910752003,22.566174045710603);
+        var bgpNE=new BMapGL.Point(117.80352141783391,24.086774639781723);
+        var bgOverlay;
+        var bgOverlayCache = {};
+        function updatebgOverlay(url) {
+            if (bgOverlay == null) {
+                var bgbounds = new BMapGL.Bounds(bgpSW, bgpNE);
+                bgOverlay = new BMapGL.GroundOverlay(bgbounds, {
+                    type: 'image',
+                    url: url,
+                    opacity: 1
+                });
+                map.addOverlay(bgOverlay);
+                //bgOverlay.hide();
+            } else {
+                if (bgOverlayCache.hasOwnProperty(getfilename(url))) {
+                    var e = bgOverlayCache[getfilename(url)];
+                    bgOverlay._config.src = url;
+                    bgOverlay._texture = e;
+                    bgOverlay.doOnceDraw();
+                    bgOverlay.draw();
+                    return true;
+                } else {
+                    imageLoad(url, function (e, isSuccess) {
+                        if (!isSuccess) {
+                            updateimgOverlay(url);
+                            return false;
+                        }
+                        bgOverlayCache[getfilename(url)] = e;
+                        bgOverlay._config.src = url;
+                        bgOverlay._texture = e;
+                        bgOverlay.doOnceDraw();
+                        bgOverlay.draw();
+                        return true;
+                    });
+                }
+            }
+        }
         var minZoom = 11;
         if(window.innerWidth>=1000){
             minZoom = 12;
@@ -735,18 +773,12 @@
                 map.addControl(new ZoomOutControl());
                 //map.addControl(new musicControl());
                 map.addControl(new lineControl());
+                updatebgOverlay('images/background.jpg');
                 updateimgOverlay(CDN_URL+'images/map.jpg');
                 
-                /*bgoverlay = new BMapGL.GroundOverlay(new BMapGL.Bounds(new BMapGL.Point(115.37417632980565,22.145114112544988), new BMapGL.Point(117.614641801019,24.43470451417812)), {
-                    type: 'image',
-                    url: 'images/background.jpg',
-                    opacity: 1.0
-                });
-                //map.addOverlay(bgoverlay);
-                
-                // 创建两个可拖拽的标记
-                var marker1 = new BMapGL.Marker(new BMapGL.Point(115.37417632980565,22.145114112544988), { enableDragging: true });
-                var marker2 = new BMapGL.Marker(new BMapGL.Point(117.614641801019,24.43470451417812), { enableDragging: true });
+                /*// 创建两个可拖拽的标记
+                var marker1 = new BMapGL.Marker(bgpSW, { enableDragging: true });
+                var marker2 = new BMapGL.Marker(bgpNE, { enableDragging: true });
 
                 // 将标记添加到地图上
                 map.addOverlay(marker1);
@@ -768,7 +800,7 @@
                     var sw = new BMapGL.Point(Math.min(point1.lng, point2.lng), Math.min(point1.lat, point2.lat));
                     var ne = new BMapGL.Point(Math.max(point1.lng, point2.lng), Math.max(point1.lat, point2.lat));
                     console.log(sw, ne);
-                    bgoverlay.setBounds(new BMapGL.Bounds(sw, ne));
+                    bgOverlay.setBounds(new BMapGL.Bounds(sw, ne));
                 }*/
                 checkOrientation();
                 document.getElementsByClassName('anchorBL')[0].style.visibility = 'hidden';
@@ -791,7 +823,7 @@
                     animation:true,
                     interval:0.5,
                     trailLength:2,
-                    duration:1
+                    duration:2
                 });
                 mapview.addLayer(lineLayer);
             })
@@ -807,6 +839,7 @@
                     opacity: 1
                 });
                 map.addOverlay(imgOverlay);
+                //imgOverlay.hide();
             } else {
                 if (imgOverlayCache.hasOwnProperty(getfilename(url))) {
                     var e = imgOverlayCache[getfilename(url)];
@@ -1237,9 +1270,11 @@
             div.onclick = function () {
                 if (div.style.backgroundImage.includes('images/line-btn.png')) {
                     div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/map-btn.png")';
+                    use_lineselect = true;
                 } else {
                     div.style.backgroundImage = 'url("https://maph5-1258456742.cos.ap-guangzhou.myqcloud.com/images/line-btn.png")';
                     updateimgOverlay(CDN_URL+'images/map.jpg');
+                    use_lineselect = false;
                     //imgOverlay.setImage(CDN_URL+'images/map.jpg');
                 }
                 if (document.getElementById('lineSelect-container').style.display == 'flex') {
