@@ -774,7 +774,7 @@
                 map.addControl(new ZoomOutControl());
                 //map.addControl(new musicControl());
                 map.addControl(new lineControl());
-                updatebgOverlay('images/background.jpg');
+                updatebgOverlay(CDN_URL+'images/background.jpg');
                 updateimgOverlay(CDN_URL+'images/map.jpg');
                 
                 /*// 创建两个可拖拽的标记
@@ -890,7 +890,7 @@
             return lastPart
         }
         function preload(){
-            imageLoad('images/background.jpg', function (e, isSuccess) {
+            imageLoad(CDN_URL+'images/background.jpg', function (e, isSuccess) {
                 imgOverlayCache[getfilename(e.url)] = e;
                 imgloaded();
                 return true;
